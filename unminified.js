@@ -18,7 +18,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     SPDX-License-Identifier: Apache-2.0
    */
 
-  // some class, probably related to Closure Library
+  // wraps string in "SafeScript{...}", probably related to Closure Library
   //
   // var g = function () {
   //   this.g = "";
@@ -45,22 +45,42 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
 
   // initialize __UM__WRAP_STRING_IN_SAFE_SCRIPT and set __UM__STRING to empty string
   //
-  // ??? why are we calling it? it doesn't seem to affect anything.
-  // ??? why setting __UM__STRING to "" if it is set to "" be default in constructor?
+  // ???(0001) why are we calling it? it doesn't seem to affect anything.
+  // ???(0002) why setting __UM__STRING to "" if it is set to "" be default in constructor?
   //
   // new g().a("");
   new __UM__WRAP_STRING_IN_SAFE_SCRIPT().set__UM__STRING("");
 
-  var h = function () {
-    this.j = "";
-  };
-  h.prototype.toString = function () {
-    return "SafeStyle{" + this.j + "}";
-  };
-  h.prototype.a = function (a) {
-    this.j = a;
-  };
-  new h().a("");
+  // wraps string in "SafeStyle{...}", same as __UM__WRAP_STRING_IN_SAFE_SCRIPT, probably inherited/implemented abstract class
+  //
+  // var h = function () {
+  //   this.j = "";
+  // };
+  // h.prototype.toString = function () {
+  //   return "SafeStyle{" + this.j + "}";
+  // };
+  // h.prototype.a = function (a) {
+  //   this.j = a;
+  // };
+  class __UM__WRAP_STRING_IN_SAFE_STYLE {
+    constructor() {
+      this.__UM__STRING = "";
+    }
+    toString() {
+      return `SafeStyle{${this.__UM__STRING}}`;
+    }
+    set__UM__STRING(newValue) {
+      this.__UM__STRING = newValue;
+    }
+  }
+
+  // initialize __UM__WRAP_STRING_IN_SAFE_SCRIPT and set __UM__STRING to empty string
+  //
+  // ???(0003) same as (0001)
+  //
+  // new h().a("");
+  new __UM__WRAP_STRING_IN_SAFE_STYLE().set__UM__STRING("");
+
   var m = function () {
     this.i = "";
   };
