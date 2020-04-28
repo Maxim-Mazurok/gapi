@@ -81,7 +81,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // new h().a("");
   new __UM__WRAP_STRING_IN_SAFE_STYLE().set__UM__STRING("");
 
-  // wraps string in "SafeStyle{...}", same as __UM__WRAP_STRING_IN_SAFE_SCRIPT, probably inherited/implemented abstract class
+  // wraps string in "SafeStyleSheet{...}", same as __UM__WRAP_STRING_IN_SAFE_SCRIPT, probably inherited/implemented abstract class
   //
   // var m = function () {
   //   this.i = "";
@@ -111,19 +111,43 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // new m().a("");
   new __UM__WRAP_STRING_IN_SAFE_STYLE_SHEET().set__UM__STRING("");
 
-  var n = function () {
-    this.f = "";
-  };
-  n.prototype.toString = function () {
-    return "SafeHtml{" + this.f + "}";
-  };
-  n.prototype.a = function (a) {
-    this.f = a;
-  };
-  new n().a("<!DOCTYPE html>");
-  new n().a("");
-  new n().a("<br>"); /*
-    gapi.loader.OBJECT_CREATE_TEST_OVERRIDE &&*/
+  // wraps string in "SafeHtml{...}", same as __UM__WRAP_STRING_IN_SAFE_SCRIPT, probably inherited/implemented abstract class
+  //
+  // var n = function () {
+  //   this.f = "";
+  // };
+  // n.prototype.toString = function () {
+  //   return "SafeHtml{" + this.f + "}";
+  // };
+  // n.prototype.a = function (a) {
+  //   this.f = a;
+  // };
+  class __UM__WRAP_STRING_IN_SAFE_HTML {
+    constructor() {
+      this.__UM__STRING = "";
+    }
+    toString() {
+      return `SafeHtml{${this.__UM__STRING}}`;
+    }
+    set__UM__STRING(newValue) {
+      this.__UM__STRING = newValue;
+    }
+  }
+
+  // initialize __UM__WRAP_STRING_IN_SAFE_HTML and set __UM__STRING a couple of times...
+  //
+  // ???(0005) same as (0001)
+  //
+  // new n().a("<!DOCTYPE html>");
+  // new n().a("");
+  // new n().a("<br>");
+  new __UM__WRAP_STRING_IN_SAFE_HTML().set__UM__STRING("<!DOCTYPE html>");
+  new __UM__WRAP_STRING_IN_SAFE_HTML().set__UM__STRING("");
+  new __UM__WRAP_STRING_IN_SAFE_HTML().set__UM__STRING("<br>");
+
+  // probably used internally for running tests? not sure. (it was commented out in original, btw)
+  // /* gapi.loader.OBJECT_CREATE_TEST_OVERRIDE && */
+
   var q = window,
     v = document,
     aa = q.location,
