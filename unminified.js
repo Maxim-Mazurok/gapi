@@ -7,7 +7,7 @@ var gapi = windows.gapi; // link window.gapi to local variable gapi
 
 // set to the current unix time (number, like 1588068844826)
 // gapi._bs = new Date().getTime();
-gapi.SOME_UNIX_TIME_NUMBER = new Date().getTime();
+gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
 
 (function () {
   /*
