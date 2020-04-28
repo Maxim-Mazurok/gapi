@@ -81,16 +81,36 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // new h().a("");
   new __UM__WRAP_STRING_IN_SAFE_STYLE().set__UM__STRING("");
 
-  var m = function () {
-    this.i = "";
-  };
-  m.prototype.toString = function () {
-    return "SafeStyleSheet{" + this.i + "}";
-  };
-  m.prototype.a = function (a) {
-    this.i = a;
-  };
-  new m().a("");
+  // wraps string in "SafeStyle{...}", same as __UM__WRAP_STRING_IN_SAFE_SCRIPT, probably inherited/implemented abstract class
+  //
+  // var m = function () {
+  //   this.i = "";
+  // };
+  // m.prototype.toString = function () {
+  //   return "SafeStyleSheet{" + this.i + "}";
+  // };
+  // m.prototype.a = function (a) {
+  //   this.i = a;
+  // };
+  class __UM__WRAP_STRING_IN_SAFE_STYLE_SHEET {
+    constructor() {
+      this.__UM__STRING = "";
+    }
+    toString() {
+      return `SafeStyleSheet{${this.__UM__STRING}}`;
+    }
+    set__UM__STRING(newValue) {
+      this.__UM__STRING = newValue;
+    }
+  }
+
+  // initialize __UM__WRAP_STRING_IN_SAFE_STYLE_SHEET and set __UM__STRING to empty string
+  //
+  // ???(0004) same as (0001)
+  //
+  // new m().a("");
+  new __UM__WRAP_STRING_IN_SAFE_STYLE_SHEET().set__UM__STRING("");
+
   var n = function () {
     this.f = "";
   };
