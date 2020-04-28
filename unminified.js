@@ -43,7 +43,14 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     }
   }
 
-  new g().a("");
+  // initialize __UM__WRAP_STRING_IN_SAFE_SCRIPT and set __UM__STRING to empty string
+  //
+  // ??? why are we calling it? it doesn't seem to affect anything.
+  // ??? why setting __UM__STRING to "" if it is set to "" be default in constructor?
+  //
+  // new g().a("");
+  new __UM__WRAP_STRING_IN_SAFE_SCRIPT().set__UM__STRING("");
+
   var h = function () {
     this.j = "";
   };
