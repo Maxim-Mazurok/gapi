@@ -112,6 +112,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   new __UM__WRAP_STRING_IN_SAFE_STYLE_SHEET().set__UM__STRING("");
 
   // wraps string in "SafeHtml{...}", same as __UM__WRAP_STRING_IN_SAFE_SCRIPT, probably inherited/implemented abstract class
+  // probably related to https://google.github.io/closure-library/api/goog.html.SafeHtml.html
   //
   // var n = function () {
   //   this.f = "";
@@ -135,6 +136,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   }
 
   // initialize __UM__WRAP_STRING_IN_SAFE_HTML and set __UM__STRING a couple of times...
+  // same as All Known Aliases: goog.html.SafeHtml.BR, goog.html.SafeHtml.DOCTYPE_HTML, goog.html.SafeHtml.EMPTY in https://google.github.io/closure-library/api/goog.html.SafeHtml.html
   //
   // ???(0005) same as (0001)
   //
