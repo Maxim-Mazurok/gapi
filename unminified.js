@@ -1,7 +1,14 @@
 // WIP
 
-var gapi = (window.gapi = window.gapi || {});
-gapi._bs = new Date().getTime();
+// declare gapi main object
+// var gapi = (window.gapi = window.gapi || {});
+window.gapi = window.gapi || {}; // reuse gapi from window, or initialize it by assigning empty object
+var gapi = windows.gapi; // link window.gapi to local variable gapi
+
+// set to the current unix time (number, like 1588068844826)
+// gapi._bs = new Date().getTime();
+gapi.SOME_UNIX_TIME_NUMBER = new Date().getTime();
+
 (function () {
   /*
 
