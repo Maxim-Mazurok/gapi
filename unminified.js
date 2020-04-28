@@ -1,11 +1,13 @@
 // WIP
 
 // declare gapi main object
+//
 // var gapi = (window.gapi = window.gapi || {});
 window.gapi = window.gapi || {}; // reuse gapi from window, or initialize it by assigning empty object
 var gapi = windows.gapi; // link window.gapi to local variable gapi
 
 // set to the current unix time (number, like 1588068844826)
+//
 // gapi._bs = new Date().getTime();
 gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
 
@@ -15,15 +17,32 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     Copyright The Closure Library Authors.
     SPDX-License-Identifier: Apache-2.0
    */
-  var g = function () {
-    this.g = "";
-  };
-  g.prototype.toString = function () {
-    return "SafeScript{" + this.g + "}";
-  };
-  g.prototype.a = function (a) {
-    this.g = a;
-  };
+
+  // some class, probably related to Closure Library
+  //
+  // var g = function () {
+  //   this.g = "";
+  // };
+  // g.prototype.toString = function () {
+  //   return "SafeScript{" + this.g + "}";
+  // };
+  // g.prototype.a = function (a) {
+  //   this.g = a;
+  // };
+  class __UM__WRAP_STRING_IN_SAFE_SCRIPT {
+    constructor() {
+      this.__UM__STRING = "";
+    }
+
+    toString() {
+      return `SafeScript{${this.__UM__STRING}}`;
+    }
+
+    set__UM__STRING(newValue) {
+      this.__UM__STRING = newValue;
+    }
+  }
+
   new g().a("");
   var h = function () {
     this.j = "";
