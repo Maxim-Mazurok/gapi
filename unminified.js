@@ -150,15 +150,32 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // probably used internally for running tests? not sure. (it was commented out in original, btw)
   // /* gapi.loader.OBJECT_CREATE_TEST_OVERRIDE && */
 
-  var q = window,
-    v = document,
-    aa = q.location,
-    ba = function () {},
-    ca = /\[native code\]/,
-    x = function (a, b, c) {
-      return (a[b] = a[b] || c);
-    },
-    da = function (a) {
+  // initialize some variables (and make it harder to read, heh)
+  //
+  // var q = window,
+  var __UM__WINDOW = window;
+  // v = document,
+  var __UM__DOCUMENT = document;
+  // aa = q.location,
+  var __UM__WINDOW_LOCATION = __UM__WINDOW.location;
+  // ba = function () {},
+  var __UM__EMPTY_FUNCTION = function () {};
+  // ca = /\[native code\]/,
+  var __UM__NATIVE_CODE_REGEXP = /\[native code\]/;
+  // x = function (a, b, c) {
+  //   return (a[b] = a[b] || c);
+  // },
+  var __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE = function (
+    object,
+    propertyName,
+    defaultValue
+  ) {
+    var value = object[propertyName] || defaultValue;
+    object[propertyName] = value;
+    return value;
+  };
+
+  var da = function (a) {
       a = a.sort();
       for (var b = [], c = void 0, d = 0; d < a.length; d++) {
         var e = a[d];
