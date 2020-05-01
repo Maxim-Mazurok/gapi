@@ -195,17 +195,31 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     });
     return __UM__ARRAY_UNIQUE;
   };
-
-  var y = function () {
-      var a;
-      if ((a = Object.create) && ca.test(a)) a = a(null);
-      else {
-        a = {};
-        for (var b in a) a[b] = void 0;
+  // y = function () {
+  //   var a;
+  //   if ((a = Object.create) && ca.test(a)) a = a(null);
+  //   else {
+  //     a = {};
+  //     for (var b in a) a[b] = void 0;
+  //   }
+  //   return a;
+  // },
+  var __UM__OBJECT_CREATE = function () {
+    var __UM__EMPTY_OBJECT;
+    if (Object.create && __UM__NATIVE_CODE_REGEXP.test(Object.create)) {
+      // if function exists and it is native
+      __UM__EMPTY_OBJECT = Object.create(null)
+    } else {
+      __UM__EMPTY_OBJECT = {};
+      for (var __UM__PROPERTY in __UM__EMPTY_OBJECT) {
+        // reset all properties of newly created object
+        __UM__EMPTY_OBJECT[__UM__PROPERTY] = undefined;
       }
-      return a;
-    },
-    D = x(q, "gapi", {});
+    }
+    return __UM__EMPTY_OBJECT;
+  }
+
+  var D = x(q, "gapi", {});
   var E;
   E = x(q, "___jsl", y());
   x(E, "I", 0);
