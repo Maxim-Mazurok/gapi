@@ -174,17 +174,29 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     object[propertyName] = value;
     return value;
   };
-
-  var da = function (a) {
-      a = a.sort();
-      for (var b = [], c = void 0, d = 0; d < a.length; d++) {
-        var e = a[d];
-        e != c && b.push(e);
-        c = e;
+  // da = function (a) {
+  //   a = a.sort();
+  //   for (var b = [], c = void 0, d = 0; d < a.length; d++) {
+  //     var e = a[d];
+  //     e != c && b.push(e);
+  //     c = e;
+  //   }
+  //   return b;
+  // },
+  var __UM__UNIQUE_ARRAY = function (__UM__ARRAY) {
+    __UM__ARRAY = __UM__ARRAY.sort();
+    var __UM__ARRAY_UNIQUE = [];
+    var __UM__PREVIOUS_ELEMENT = undefined;
+    __UM__ARRAY.forEach((__UM__CURRENT_ELEMENT) => {
+      if (__UM__CURRENT_ELEMENT != __UM__PREVIOUS_ELEMENT) {
+        __UM__ARRAY_UNIQUE.push(__UM__CURRENT_ELEMENT);
+        __UM__PREVIOUS_ELEMENT = __UM__CURRENT_ELEMENT;
       }
-      return b;
-    },
-    y = function () {
+    });
+    return __UM__ARRAY_UNIQUE;
+  };
+
+  var y = function () {
       var a;
       if ((a = Object.create) && ca.test(a)) a = a(null);
       else {
