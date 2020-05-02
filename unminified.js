@@ -221,10 +221,17 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // D = x(q, "gapi", {});
   var __UM__GAPI = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(__UM__WINDOW, "gapi", {});
 
-  var E;
-  E = x(q, "___jsl", y());
-  x(E, "I", 0);
-  x(E, "hel", 10);
+  // var E;
+  // E = x(q, "___jsl", y());
+  // x(E, "I", 0);
+  // x(E, "hel", 10);
+  // var __UM__SOME_VARIABLE;
+  // initialize window.___jsl as {}
+  __UM__JSL = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(__UM__WINDOW, "___jsl", __UM__OBJECT_CREATE());
+  __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(__UM__JSL, "I", 0);
+  __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(__UM__JSL, "hel", 10);
+  // now window.___jsl = {"I": 0, "hel": 10}
+
   var F = function () {
       var a = aa.href;
       if (E.dpo) var b = E.h;
