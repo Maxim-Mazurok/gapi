@@ -721,13 +721,40 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     a = V(a, "t");
     return { pathPrefix: b, version: c, b: d, l: e, o: a };
   };
-  var U = function (a) {
-    for (var b = [], c = 0, d = a.length; c < d; ++c) {
-      var e = a[c].replace(/\./g, "_").replace(/-/g, "_");
-      la.test(e) && b.push(e);
+
+  // replaces "." and "-" to "_" in strings in array,
+  // removes strings with weird chars
+  // and joins array in string using ","
+  //
+  // var U = function (a) {
+  //   for (var b = [], c = 0, d = a.length; c < d; ++c) {
+  //     var e = a[c].replace(/\./g, "_").replace(/-/g, "_");
+  //     la.test(e) && b.push(e);
+  //   }
+  //   return b.join(",");
+  // };
+  var __UM__CLEAN_ARRAY_OF_STRINGS_AND_STRINGIFY = function (
+    __UM__ARRAY_OF_STRINGS
+  ) {
+    var __UM__ARRAY_OF_STRINGS_CLEANED = [];
+    var __UM__ARRAY_OF_STRINGS_LENGTH = __UM__ARRAY_OF_STRINGS.length;
+    for (
+      var __UM__INDEX = 0;
+      __UM__INDEX < __UM__ARRAY_OF_STRINGS_LENGTH;
+      __UM__INDEX++
+    ) {
+      var __UM__STRING_CLEANED = __UM__ARRAY_OF_STRINGS[__UM__INDEX]
+        .replace(/\./g, "_")
+        .replace(/-/g, "_");
+      if (
+        __UM__AZ_09_PUNCTUATION_WITHOUT_BANG_REGEXP.test(__UM__STRING_CLEANED)
+      ) {
+        __UM__ARRAY_OF_STRINGS_CLEANED.push(__UM__STRING_CLEANED);
+      }
     }
-    return b.join(",");
+    return __UM__ARRAY_OF_STRINGS_CLEANED.join(",");
   };
+
   var V = function (a, b, c) {
     a = a[b];
     !a && c && S("missing: " + b);
