@@ -360,9 +360,9 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     );
   };
 
-  var H = x(E, "perf", y()),
-    K = x(H, "g", y()),
-    ha = x(H, "i", y());
+  var H = x(E, "perf", y());
+  var K = x(H, "g", y());
+  var ha = x(H, "i", y());
   x(H, "r", []);
   y();
   y();
