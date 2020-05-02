@@ -591,11 +591,17 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     },
   ]);
 
-  var ia = /^(\/[a-zA-Z0-9_\-]+)+$/;
-  var T = [/\/amp\//, /\/amp$/, /^\/amp$/];
-  var ja = /^[a-zA-Z0-9\-_\.,!]+$/;
-  var ka = /^gapi\.loaded_[0-9]+$/;
-  var la = /^[a-zA-Z0-9,._-]+$/;
+  // var ia = /^(\/[a-zA-Z0-9_\-]+)+$/;
+  var __UM__URL_PARTS_REGEXP = /^(\/[a-zA-Z0-9_\-]+)+$/; // ??? maybe not URL parts. Like /test-1/test_2/test
+  // var T = [/\/amp\//, /\/amp$/, /^\/amp$/];
+  var __UM__AMP_REGEXP = [/\/amp\//, /\/amp$/, /^\/amp$/];
+  // var ja = /^[a-zA-Z0-9\-_\.,!]+$/;
+  var __UM__AZ_09_PUNCTUATION_REGEXP = /^[a-zA-Z0-9\-_\.,!]+$/; // ??? why escape minus \- ?
+  // var ka = /^gapi\.loaded_[0-9]+$/;
+  var __UM__GAPI_LOADED_REGEXP = /^gapi\.loaded_[0-9]+$/;
+  // var la = /^[a-zA-Z0-9,._-]+$/;
+  var __UM__AZ_09_LESS_PUNCTUATION_REGEXP__ANY_CHAR_MISTAKE = /^[a-zA-Z0-9,._-]+$/; // ??? why not escape dot ?!
+
   var pa = function (a, b, c, d) {
     var e = a.split(";"),
       f = e.shift(),
