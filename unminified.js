@@ -253,6 +253,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //    "perf" (object)
   //      known props:
   //        "g" (object)
+  //        "i" (object)
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
   //
@@ -369,7 +370,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   var __UM__JSL_PERF = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
     __UM__JSL,
     "perf",
-    __UM__OBJECT_CREATE
+    __UM__OBJECT_CREATE()
   );
 
   // get or init and get window.___jsl.perf.g, empty object by default
@@ -378,10 +379,18 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   var __UM__JSL_PERF_G = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
     __UM__JSL_PERF,
     "g",
-    __UM__OBJECT_CREATE
+    __UM__OBJECT_CREATE()
   );
 
-  var ha = x(H, "i", y());
+  // get or init and get window.___jsl.perf.i, empty object by default
+  //
+  // var ha = x(H, "i", y());
+  var __UM__JSL_PERF_I = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+    __UM__JSL_PERF,
+    "i",
+    __UM__OBJECT_CREATE()
+  );
+
   x(H, "r", []);
   y();
   y();
