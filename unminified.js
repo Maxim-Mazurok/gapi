@@ -250,6 +250,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //   "h" (string?),
   //   "H" (object of objects),
   //   "PQ" (array of functions that accept callback)
+  //   "perf" (object)
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
   //
@@ -342,7 +343,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     }
   };
 
-  // get or initialize and get property (window.___jsl.H['PROPERTY']) to empty object
+  // get or initialize and get property (window.___jsl.H['PROPERTY']), empty object by default
   //
   // var G = function (a) {
   //   return x(x(E, "H", y()), a, y());
@@ -360,7 +361,14 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     );
   };
 
-  var H = x(E, "perf", y());
+  // get or init and get window.___jsl.perf, empty object by default
+  // var H = x(E, "perf", y());
+  var __UM__JSL_PERF = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+    __UM__JSL,
+    "perf",
+    __UM__OBJECT_CREATE
+  );
+
   var K = x(H, "g", y());
   var ha = x(H, "i", y());
   x(H, "r", []);
