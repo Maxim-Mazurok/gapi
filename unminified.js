@@ -254,7 +254,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //      known props:
   //        "g" (object)
   //        "i" (object)
-  //        "r" (array)
+  //        "r" (array (of arrays) by default, or function)
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
   //
@@ -377,7 +377,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // get or init and get window.___jsl.perf.g, empty object by default
   //
   // var K = x(H, "g", y());
-  var __UM__JSL_PERF_G = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+  var __UM__JSL_PERF_g = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
     __UM__JSL_PERF,
     "g",
     __UM__OBJECT_CREATE()
@@ -386,7 +386,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // get or init and get window.___jsl.perf.i, empty object by default
   //
   // var ha = x(H, "i", y());
-  var __UM__JSL_PERF_I = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+  var __UM__JSL_PERF_i = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
     __UM__JSL_PERF,
     "i",
     __UM__OBJECT_CREATE()
@@ -408,10 +408,28 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   __UM__OBJECT_CREATE();
   __UM__OBJECT_CREATE();
 
-  var L = function (a, b, c) {
-    var d = H.r;
-    "function" === typeof d ? d(a, b, c) : d.push([a, b, c]);
+  // if window.___jsl.perf.r is array - push array of args,
+  // if it's function - call it with args
+  // probably, each arg is replaceable with ...args
+  //
+  // var L = function (a, b, c) {
+  //   var d = H.r;
+  //   "function" === typeof d ? d(a, b, c) : d.push([a, b, c]);
+  // };
+  var __UM_PUSH_TO_OR_CALL_JSL_PERF_r = function (
+    __UM__PARAM_1,
+    __UM__PARAM_2,
+    __UM__PARAM_3
+  ) {
+    var __UM__JSL_PERF_r = __UM__JSL_PERF["r"];
+    if (typeof __UM__JSL_PERF_r === "function") {
+      __UM__JSL_PERF_r(__UM__PARAM_1, __UM__PARAM_2, __UM__PARAM_3);
+    } else {
+      // array
+      __UM__JSL_PERF_r.push([__UM__PARAM_1, __UM__PARAM_2, __UM__PARAM_3]);
+    }
   };
+
   var N = function (a, b, c) {
     b &&
       0 < b.length &&
