@@ -517,11 +517,25 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       .replace(/,/g, "_");
   };
 
-  var O = y();
-  var R = [];
-  var S = function (a) {
-    throw Error("Bad hint" + (a ? ": " + a : ""));
+  // ???(0008)
+  // var O = y();
+  var __UM__SOME_EMPTY_OBJECT = __UM__OBJECT_CREATE();
+
+  // ???(0009)
+  // var R = [];
+  var __UM__SOME_EMPTY_ARRAY = [];
+
+  // var S = function (a) {
+  //   throw Error("Bad hint" + (a ? ": " + a : ""));
+  // };
+  var __UM__THROW_BAD_HINT_ERROR = function (__UM__MESSAGE) {
+    var errorString = "Bad hint";
+    if (__UM__MESSAGE) {
+      errorString += `: ${__UM__MESSAGE}`;
+    }
+    throw Error(errorString);
   };
+
   R.push([
     "jsl",
     function (a) {
