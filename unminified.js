@@ -257,6 +257,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //          known props:
   //            "_p" (object)
   //        "r" (array (of arrays) by default, or function)
+  //    "us" (array)
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
   //
@@ -523,7 +524,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
 
   // ???(0009)
   // var R = [];
-  var __UM__SOME_EMPTY_ARRAY = [];
+  var __UM__SOME_ARRAY = [];
 
   // var S = function (a) {
   //   throw Error("Bad hint" + (a ? ": " + a : ""));
@@ -536,20 +537,60 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     throw Error(errorString);
   };
 
-  R.push([
+  // ???(0010) what is is this all about?...
+  // R.push([
+  //   "jsl",
+  //   function (a) {
+  //     for (var b in a)
+  //       if (Object.prototype.hasOwnProperty.call(a, b)) {
+  //         var c = a[b];
+  //         "object" == typeof c ? (E[b] = x(E, b, []).concat(c)) : x(E, b, c);
+  //       }
+  //     if ((b = a.u))
+  //       (a = x(E, "us", [])),
+  //         a.push(b),
+  //         (b = /^https:(.*)$/.exec(b)) && a.push("http:" + b[1]);
+  //   },
+  // ]);
+  __UM__SOME_ARRAY.push([
     "jsl",
-    function (a) {
-      for (var b in a)
-        if (Object.prototype.hasOwnProperty.call(a, b)) {
-          var c = a[b];
-          "object" == typeof c ? (E[b] = x(E, b, []).concat(c)) : x(E, b, c);
+    function (__UM__SOME_OBJ) {
+      for (var __UM__OBJ_PROP in __UM__SOME_OBJ) {
+        if (__UM__SOME_OBJ.hasOwnProperty(__UM__OBJ_PROP)) {
+          var __UM__VALUE = __UM__SOME_OBJ[__UM__OBJ_PROP];
+          if (typeof __UM__VALUE === "object") {
+            __UM__JSL[
+              __UM__OBJ_PROP
+            ] = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+              __UM__JSL,
+              __UM__OBJ_PROP,
+              __UM__VALUE
+            ).concat(__UM__VALUE);
+          } else {
+            __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+              __UM__JSL,
+              __UM__OBJ_PROP,
+              __UM__VALUE
+            );
+          }
         }
-      if ((b = a.u))
-        (a = x(E, "us", [])),
-          a.push(b),
-          (b = /^https:(.*)$/.exec(b)) && a.push("http:" + b[1]);
+      }
+      var __UM__SOME_OBJ_u = __UM__SOME_OBJ["u"]; // --- (__UM__OBJ_PROP)
+      if (__UM__SOME_OBJ_u) {
+        var __UM__JSL_us = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+          __UM__JSL,
+          "us",
+          []
+        );
+        __UM__JSL_us.push(__UM__SOME_OBJ_u);
+        var __UM__URL_WITHOUT_HTTPS = /^https:(.*)$/.exec(__UM__SOME_OBJ_u); // --- (__UM__SOME_OBJ_u)
+        if (__UM__URL_WITHOUT_HTTPS) {
+          __UM__JSL_us.push("http:" + __UM__URL_WITHOUT_HTTPS[1]);
+        }
+      }
     },
   ]);
+
   var ia = /^(\/[a-zA-Z0-9_\-]+)+$/,
     T = [/\/amp\//, /\/amp$/, /^\/amp$/],
     ja = /^[a-zA-Z0-9\-_\.,!]+$/,
