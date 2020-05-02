@@ -4,7 +4,7 @@
 //
 // var gapi = (window.gapi = window.gapi || {});
 window.gapi = window.gapi || {}; // reuse gapi from window, or initialize it by assigning empty object
-var gapi = windows.gapi; // link window.gapi to local variable gapi
+var gapi = window.gapi; // link window.gapi to local variable gapi
 
 // set to the current unix time (number, like 1588068844826)
 //
@@ -254,6 +254,8 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //      known props:
   //        "g" (object)
   //        "i" (object)
+  //          known props:
+  //            "_p" (object)
   //        "r" (array (of arrays) by default, or function)
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
@@ -416,38 +418,105 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //   var d = H.r;
   //   "function" === typeof d ? d(a, b, c) : d.push([a, b, c]);
   // };
-  var __UM_PUSH_TO_OR_CALL_JSL_PERF_r = function (
-    __UM__PARAM_1,
-    __UM__PARAM_2,
-    __UM__PARAM_3
+  var __UM__PUSH_TO_OR_CALL_JSL_PERF_r = function (
+    __UM__ARG_1,
+    __UM__ARG_2,
+    __UM__ARG_3
   ) {
     var __UM__JSL_PERF_r = __UM__JSL_PERF["r"];
     if (typeof __UM__JSL_PERF_r === "function") {
-      __UM__JSL_PERF_r(__UM__PARAM_1, __UM__PARAM_2, __UM__PARAM_3);
+      __UM__JSL_PERF_r(__UM__ARG_1, __UM__ARG_2, __UM__ARG_3);
     } else {
       // array
-      __UM__JSL_PERF_r.push([__UM__PARAM_1, __UM__PARAM_2, __UM__PARAM_3]);
+      __UM__JSL_PERF_r.push([__UM__ARG_1, __UM__ARG_2, __UM__ARG_3]);
     }
   };
 
-  var N = function (a, b, c) {
-    b &&
-      0 < b.length &&
-      ((b = M(b)),
-      c && 0 < c.length && (b += "___" + M(c)),
-      28 < b.length && (b = b.substr(0, 28) + (b.length - 28)),
-      (c = b),
-      (b = x(ha, "_p", y())),
-      (x(b, c, y())[a] = new Date().getTime()),
-      L(a, "_p", c));
+  // record performance?
+  //
+  // var N = function (a, b, c) {
+  //   b &&
+  //     0 < b.length &&
+  //     (
+  //       (b = M(b)),
+  //       c && 0 < c.length && (b += "___" + M(c)),
+  //       28 < b.length && (b = b.substr(0, 28) + (b.length - 28)),
+  //       (c = b),
+  //       (b = x(ha, "_p", y())),
+  //       (x(b, c, y())[a] = new Date().getTime()),
+  //       L(a, "_p", c)
+  //     );
+  // };
+  var __UM__RECORD_PERF = function (
+    __UM__JSL_PERF_i__p_shortArr1And3Value_PROP_NAME,
+    __UM__ARRAY_1,
+    __UM__ARRAY_2
+  ) {
+    if (__UM__ARRAY_1 && __UM__ARRAY_1.length > 0) {
+      // arr1 = stringify(arr1)
+      __UM__ARRAY_1 = __UM__ARRAY_TO_STRING(__UM__ARRAY_1);
+
+      if (__UM__ARRAY_2 && __UM__ARRAY_2.length > 0) {
+        // arr1 = stringify(arr1) + ___ + stringify(arr2)
+        __UM__ARRAY_1 += "___" + __UM__ARRAY_TO_STRING(__UM__ARRAY_2);
+      }
+
+      if (__UM__ARRAY_1.length > 28) {
+        // ???(0007) magic number 28?
+        // arr1 = arr1{0..28} + (arr1.length - 28)
+        // arr1 = first 28 chars + number of other chars
+        __UM__ARRAY_1 =
+          __UM__ARRAY_1.substr(0, 28) + (__UM__ARRAY_1.length - 28);
+      }
+
+      // stringify(arr1){0..28} + (arr1.length - 28) [ + ___ + stringify(arr2)]?
+      // __UM__ARRAY_2 = __UM__ARRAY_1; // reusing arr2 is not readable
+      var shortArr1And3Value = __UM__ARRAY_1;
+
+      // window.___jsl.perf.i._p or {}
+      // __UM__ARRAY_1 = ... // reusing arr1 is not readable
+      var JSL_PERF_i__p = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+        __UM__JSL_PERF_i,
+        "_p",
+        __UM__OBJECT_CREATE()
+      );
+
+      // set window.___jsl.perf.i._p[shortArr1And3Value][PROP_NAME] to current UNIX time (number)
+      __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+        JSL_PERF_i__p, // window.___jsl.perf.i._p or {} --- (__UM__ARRAY_1)
+        shortArr1And3Value, // stringify(arr1){0..28} + (arr1.length - 28) [ + ___ + stringify(arr2)]? --- (__UM__ARRAY_2)
+        __UM__OBJECT_CREATE()
+      )[
+        __UM__JSL_PERF_i__p_shortArr1And3Value_PROP_NAME
+      ] = new Date().getTime();
+
+      // record some activity?
+      __UM__PUSH_TO_OR_CALL_JSL_PERF_r(
+        __UM__JSL_PERF_i__p_shortArr1And3Value_PROP_NAME,
+        "_p",
+        shortArr1And3Value // --- (__UM__ARRAY_2)
+      );
+    }
   };
-  var M = function (a) {
-    return a
+
+  // join array with __ and replace all ".", "-" and "," with "_"
+  // probably for use in URL, or something
+  //
+  // var M = function (a) {
+  //   return a
+  //     .join("__")
+  //     .replace(/\./g, "_")
+  //     .replace(/\-/g, "_")
+  //     .replace(/,/g, "_");
+  // };
+  var __UM__ARRAY_TO_STRING = function (__UM__ARRAY) {
+    return __UM__ARRAY
       .join("__")
       .replace(/\./g, "_")
       .replace(/\-/g, "_")
       .replace(/,/g, "_");
   };
+
   var O = y(),
     R = [],
     S = function (a) {
