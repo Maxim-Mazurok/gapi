@@ -254,6 +254,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //      known props:
   //        "g" (object)
   //        "i" (object)
+  //        "r" (array)
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
   //
@@ -391,7 +392,15 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     __UM__OBJECT_CREATE()
   );
 
-  x(H, "r", []);
+  // init window.___jsl.perf.r, empty array by default
+  //
+  // x(H, "r", []);
+  __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+    __UM__JSL_PERF,
+    "r",
+    []
+  );
+
   y();
   y();
   var L = function (a, b, c) {
