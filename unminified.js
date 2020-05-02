@@ -591,105 +591,106 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     },
   ]);
 
-  var ia = /^(\/[a-zA-Z0-9_\-]+)+$/,
-    T = [/\/amp\//, /\/amp$/, /^\/amp$/],
-    ja = /^[a-zA-Z0-9\-_\.,!]+$/,
-    ka = /^gapi\.loaded_[0-9]+$/,
-    la = /^[a-zA-Z0-9,._-]+$/,
-    pa = function (a, b, c, d) {
-      var e = a.split(";"),
-        f = e.shift(),
-        l = O[f],
-        k = null;
-      l ? (k = l(e, b, c, d)) : S("no hint processor for: " + f);
-      k || S("failed to generate load url");
-      b = k;
-      c = b.match(ma);
-      ((d = b.match(na)) &&
-        1 === d.length &&
-        oa.test(b) &&
-        c &&
-        1 === c.length) ||
-        S("failed sanity: " + a);
-      return k;
-    },
-    ra = function (a, b, c, d) {
-      a = qa(a);
-      ka.test(c) || S("invalid_callback");
-      b = U(b);
-      d = d && d.length ? U(d) : null;
-      var e = function (f) {
-        return encodeURIComponent(f).replace(/%2C/g, ",");
-      };
-      return [
-        encodeURIComponent(a.pathPrefix)
-          .replace(/%2C/g, ",")
-          .replace(/%2F/g, "/"),
-        "/k=",
-        e(a.version),
-        "/m=",
-        e(b),
-        d ? "/exm=" + e(d) : "",
-        "/rt=j/sv=1/d=1/ed=1",
-        a.b ? "/am=" + e(a.b) : "",
-        a.l ? "/rs=" + e(a.l) : "",
-        a.o ? "/t=" + e(a.o) : "",
-        "/cb=",
-        e(c),
-      ].join("");
-    },
-    qa = function (a) {
-      "/" !== a.charAt(0) && S("relative path");
-      for (var b = a.substring(1).split("/"), c = []; b.length; ) {
-        a = b.shift();
-        if (!a.length || 0 == a.indexOf(".")) S("empty/relative directory");
-        else if (0 < a.indexOf("=")) {
-          b.unshift(a);
-          break;
-        }
-        c.push(a);
-      }
-      a = {};
-      for (var d = 0, e = b.length; d < e; ++d) {
-        var f = b[d].split("="),
-          l = decodeURIComponent(f[0]),
-          k = decodeURIComponent(f[1]);
-        2 == f.length && l && k && (a[l] = a[l] || k);
-      }
-      b = "/" + c.join("/");
-      ia.test(b) || S("invalid_prefix");
-      c = 0;
-      for (d = T.length; c < d; ++c) T[c].test(b) && S("invalid_prefix");
-      c = V(a, "k", !0);
-      d = V(a, "am");
-      e = V(a, "rs");
-      a = V(a, "t");
-      return { pathPrefix: b, version: c, b: d, l: e, o: a };
-    },
-    U = function (a) {
-      for (var b = [], c = 0, d = a.length; c < d; ++c) {
-        var e = a[c].replace(/\./g, "_").replace(/-/g, "_");
-        la.test(e) && b.push(e);
-      }
-      return b.join(",");
-    },
-    V = function (a, b, c) {
-      a = a[b];
-      !a && c && S("missing: " + b);
-      if (a) {
-        if (ja.test(a)) return a;
-        S("invalid: " + b);
-      }
-      return null;
-    },
-    oa = /^https?:\/\/[a-z0-9_.-]+\.google(rs)?\.com(:\d+)?\/[a-zA-Z0-9_.,!=\-\/]+$/,
-    na = /\/cb=/g,
-    ma = /\/\//g,
-    sa = function () {
-      var a = F();
-      if (!a) throw Error("Bad hint");
-      return a;
+  var ia = /^(\/[a-zA-Z0-9_\-]+)+$/;
+  var T = [/\/amp\//, /\/amp$/, /^\/amp$/];
+  var ja = /^[a-zA-Z0-9\-_\.,!]+$/;
+  var ka = /^gapi\.loaded_[0-9]+$/;
+  var la = /^[a-zA-Z0-9,._-]+$/;
+  var pa = function (a, b, c, d) {
+    var e = a.split(";"),
+      f = e.shift(),
+      l = O[f],
+      k = null;
+    l ? (k = l(e, b, c, d)) : S("no hint processor for: " + f);
+    k || S("failed to generate load url");
+    b = k;
+    c = b.match(ma);
+    ((d = b.match(na)) &&
+      1 === d.length &&
+      oa.test(b) &&
+      c &&
+      1 === c.length) ||
+      S("failed sanity: " + a);
+    return k;
+  };
+  var ra = function (a, b, c, d) {
+    a = qa(a);
+    ka.test(c) || S("invalid_callback");
+    b = U(b);
+    d = d && d.length ? U(d) : null;
+    var e = function (f) {
+      return encodeURIComponent(f).replace(/%2C/g, ",");
     };
+    return [
+      encodeURIComponent(a.pathPrefix)
+        .replace(/%2C/g, ",")
+        .replace(/%2F/g, "/"),
+      "/k=",
+      e(a.version),
+      "/m=",
+      e(b),
+      d ? "/exm=" + e(d) : "",
+      "/rt=j/sv=1/d=1/ed=1",
+      a.b ? "/am=" + e(a.b) : "",
+      a.l ? "/rs=" + e(a.l) : "",
+      a.o ? "/t=" + e(a.o) : "",
+      "/cb=",
+      e(c),
+    ].join("");
+  };
+  var qa = function (a) {
+    "/" !== a.charAt(0) && S("relative path");
+    for (var b = a.substring(1).split("/"), c = []; b.length; ) {
+      a = b.shift();
+      if (!a.length || 0 == a.indexOf(".")) S("empty/relative directory");
+      else if (0 < a.indexOf("=")) {
+        b.unshift(a);
+        break;
+      }
+      c.push(a);
+    }
+    a = {};
+    for (var d = 0, e = b.length; d < e; ++d) {
+      var f = b[d].split("="),
+        l = decodeURIComponent(f[0]),
+        k = decodeURIComponent(f[1]);
+      2 == f.length && l && k && (a[l] = a[l] || k);
+    }
+    b = "/" + c.join("/");
+    ia.test(b) || S("invalid_prefix");
+    c = 0;
+    for (d = T.length; c < d; ++c) T[c].test(b) && S("invalid_prefix");
+    c = V(a, "k", !0);
+    d = V(a, "am");
+    e = V(a, "rs");
+    a = V(a, "t");
+    return { pathPrefix: b, version: c, b: d, l: e, o: a };
+  };
+  var U = function (a) {
+    for (var b = [], c = 0, d = a.length; c < d; ++c) {
+      var e = a[c].replace(/\./g, "_").replace(/-/g, "_");
+      la.test(e) && b.push(e);
+    }
+    return b.join(",");
+  };
+  var V = function (a, b, c) {
+    a = a[b];
+    !a && c && S("missing: " + b);
+    if (a) {
+      if (ja.test(a)) return a;
+      S("invalid: " + b);
+    }
+    return null;
+  };
+  var oa = /^https?:\/\/[a-z0-9_.-]+\.google(rs)?\.com(:\d+)?\/[a-zA-Z0-9_.,!=\-\/]+$/;
+  var na = /\/cb=/g;
+  var ma = /\/\//g;
+  var sa = function () {
+    var a = F();
+    if (!a) throw Error("Bad hint");
+    return a;
+  };
+
   O.m = function (a, b, c, d) {
     (a = a[0]) || S("missing_hint");
     return "https://apis.google.com" + ra(a, b, c, d);
