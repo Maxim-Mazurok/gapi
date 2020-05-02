@@ -218,8 +218,9 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     }
     return __UM__EMPTY_OBJECT;
   }
+  // D = x(q, "gapi", {});
+  var __UM__GAPI = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(__UM__WINDOW, "gapi", {});
 
-  var D = x(q, "gapi", {});
   var E;
   E = x(q, "___jsl", y());
   x(E, "I", 0);
