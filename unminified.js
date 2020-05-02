@@ -409,27 +409,27 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   __UM__OBJECT_CREATE();
 
   var L = function (a, b, c) {
-      var d = H.r;
-      "function" === typeof d ? d(a, b, c) : d.push([a, b, c]);
-    },
-    N = function (a, b, c) {
-      b &&
-        0 < b.length &&
-        ((b = M(b)),
-        c && 0 < c.length && (b += "___" + M(c)),
-        28 < b.length && (b = b.substr(0, 28) + (b.length - 28)),
-        (c = b),
-        (b = x(ha, "_p", y())),
-        (x(b, c, y())[a] = new Date().getTime()),
-        L(a, "_p", c));
-    },
-    M = function (a) {
-      return a
-        .join("__")
-        .replace(/\./g, "_")
-        .replace(/\-/g, "_")
-        .replace(/,/g, "_");
-    };
+    var d = H.r;
+    "function" === typeof d ? d(a, b, c) : d.push([a, b, c]);
+  };
+  var N = function (a, b, c) {
+    b &&
+      0 < b.length &&
+      ((b = M(b)),
+      c && 0 < c.length && (b += "___" + M(c)),
+      28 < b.length && (b = b.substr(0, 28) + (b.length - 28)),
+      (c = b),
+      (b = x(ha, "_p", y())),
+      (x(b, c, y())[a] = new Date().getTime()),
+      L(a, "_p", c));
+  };
+  var M = function (a) {
+    return a
+      .join("__")
+      .replace(/\./g, "_")
+      .replace(/\-/g, "_")
+      .replace(/,/g, "_");
+  };
   var O = y(),
     R = [],
     S = function (a) {
