@@ -517,11 +517,11 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       .replace(/,/g, "_");
   };
 
-  var O = y(),
-    R = [],
-    S = function (a) {
-      throw Error("Bad hint" + (a ? ": " + a : ""));
-    };
+  var O = y();
+  var R = [];
+  var S = function (a) {
+    throw Error("Bad hint" + (a ? ": " + a : ""));
+  };
   R.push([
     "jsl",
     function (a) {
