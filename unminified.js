@@ -518,7 +518,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       .replace(/,/g, "_");
   };
 
-  // ???(0008)
+  // ???(0008) - it's OK, it's being used lated in tht code
   // var O = y();
   var __UM__SOME_EMPTY_OBJECT = __UM__OBJECT_CREATE();
 
@@ -596,29 +596,78 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // var T = [/\/amp\//, /\/amp$/, /^\/amp$/];
   var __UM__AMP_REGEXP = [/\/amp\//, /\/amp$/, /^\/amp$/];
   // var ja = /^[a-zA-Z0-9\-_\.,!]+$/;
-  var __UM__AZ_09_PUNCTUATION_REGEXP = /^[a-zA-Z0-9\-_\.,!]+$/; // ??? why escape minus \- ?
+  var __UM__AZ_09_PUNCTUATION_REGEXP = /^[a-zA-Z0-9\-_\.,!]+$/; // ??? why escape minus and dot ?
   // var ka = /^gapi\.loaded_[0-9]+$/;
   var __UM__GAPI_LOADED_REGEXP = /^gapi\.loaded_[0-9]+$/;
   // var la = /^[a-zA-Z0-9,._-]+$/;
-  var __UM__AZ_09_LESS_PUNCTUATION_REGEXP__ANY_CHAR_MISTAKE = /^[a-zA-Z0-9,._-]+$/; // ??? why not escape dot ?!
+  var __UM__AZ_09_PUNCTUATION_WITHOUT_BANG_REGEXP = /^[a-zA-Z0-9,._-]+$/;
 
-  var pa = function (a, b, c, d) {
-    var e = a.split(";"),
-      f = e.shift(),
-      l = O[f],
-      k = null;
-    l ? (k = l(e, b, c, d)) : S("no hint processor for: " + f);
-    k || S("failed to generate load url");
-    b = k;
-    c = b.match(ma);
-    ((d = b.match(na)) &&
-      1 === d.length &&
-      oa.test(b) &&
-      c &&
-      1 === c.length) ||
-      S("failed sanity: " + a);
-    return k;
+  // generates some "load url", checks it and returns it or throws error
+  //
+  // var pa = function (a, b, c, d) {
+  //   var e = a.split(";"),
+  //     f = e.shift(),
+  //     l = O[f],
+  //     k = null;
+  //   l ? (k = l(e, b, c, d)) : S("no hint processor for: " + f);
+  //   k || S("failed to generate load url");
+  //   b = k;
+  //   c = b.match(ma);
+  //   ((d = b.match(na)) &&
+  //     1 === d.length &&
+  //     oa.test(b) &&
+  //     c &&
+  //     1 === c.length) ||
+  //     S("failed sanity: " + a);
+  //   return k;
+  // };
+  var __UM__GENERATE_LOAD_URL = function (
+    __UM__ARG_1, // string
+    __UM__ARG_2,
+    __UM__ARG_3,
+    __UM__ARG_4
+  ) {
+    var __UM__ARG_1_AS_ARRAY = __UM__ARG_1.split(";");
+    var __UM__ARG_1_AS_ARRAY_FIRST = __UM__ARG_1_AS_ARRAY.shift();
+    var __UM__GENERATE_LOAD_URL = // hint processor
+      __UM__SOME_EMPTY_OBJECT[__UM__ARG_1_AS_ARRAY_FIRST];
+    var __UM__LOAD_URL = null;
+    if (__UM__GENERATE_LOAD_URL) {
+      __UM__LOAD_URL = __UM__GENERATE_LOAD_URL(
+        __UM__ARG_1_AS_ARRAY,
+        __UM__ARG_2,
+        __UM__ARG_3,
+        __UM__ARG_4
+      );
+    } else {
+      __UM__THROW_BAD_HINT_ERROR(
+        "no hint processor for: " + __UM__ARG_1_AS_ARRAY_FIRST
+      );
+    }
+    if (!__UM__LOAD_URL) {
+      __UM__THROW_BAD_HINT_ERROR("failed to generate load url");
+    }
+    var __UM__LOAD_URL_COPY = __UM__LOAD_URL; // ??? why copy it if it's not be modified later?
+    var __UM__DOUBLE_SLASHES_MATCHES = __UM__LOAD_URL_COPY.match(
+      __UM__DOUBLE_SLASH_REGEXP
+    );
+    var __UM__SLASH_CB_EQUAL_MATCHES = __UM__LOAD_URL_COPY.match(
+      __UM__SLASH_CB_EQUAL_REGEXP
+    );
+    if (
+      __UM__SLASH_CB_EQUAL_MATCHES &&
+      __UM__SLASH_CB_EQUAL_MATCHES.length === 1 && // only one "/cb="
+      __UM__GOOGLE_URL_REGEXP.test(__UM__LOAD_URL_COPY) && // is google.com URL (without query string)
+      __UM__DOUBLE_SLASHES_MATCHES &&
+      __UM__DOUBLE_SLASHES_MATCHES.length === 1 // only one "//"
+    ) {
+      // all good
+    } else {
+      __UM__THROW_BAD_HINT_ERROR("failed sanity: " + __UM__ARG_1);
+    }
+    return __UM__LOAD_URL;
   };
+
   var ra = function (a, b, c, d) {
     a = qa(a);
     ka.test(c) || S("invalid_callback");
@@ -688,9 +737,17 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     }
     return null;
   };
-  var oa = /^https?:\/\/[a-z0-9_.-]+\.google(rs)?\.com(:\d+)?\/[a-zA-Z0-9_.,!=\-\/]+$/;
-  var na = /\/cb=/g;
-  var ma = /\/\//g;
+
+  // *.google.com/* URL (doesn't match with query "?" string and "#" hash)
+  // var oa = /^https?:\/\/[a-z0-9_.-]+\.google(rs)?\.com(:\d+)?\/[a-zA-Z0-9_.,!=\-\/]+$/;
+  var __UM__GOOGLE_URL_REGEXP = /^https?:\/\/[a-z0-9_.-]+\.google(rs)?\.com(:\d+)?\/[a-zA-Z0-9_.,!=\-\/]+$/;
+
+  // var na = /\/cb=/g;
+  var __UM__SLASH_CB_EQUAL_REGEXP = /\/cb=/g;
+
+  // var ma = /\/\//g;
+  var __UM__DOUBLE_SLASH_REGEXP = /\/\//g;
+
   var sa = function () {
     var a = F();
     if (!a) throw Error("Bad hint");
