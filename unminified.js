@@ -243,7 +243,13 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     10
   );
   // now window.___jsl = {"I": 0, "hel": 10}
-  // known properties: "I" (int), "hel" (int), "dpo", "h" (string?), "PQ" (array of functions that accept callback)
+  // known properties:
+  //   "I" (int),
+  //   "hel" (int),
+  //   "dpo",
+  //   "h" (string?),
+  //   "H" (object of objects),
+  //   "PQ" (array of functions that accept callback)
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
   //
@@ -336,9 +342,24 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     }
   };
 
-  var G = function (a) {
-    return x(x(E, "H", y()), a, y());
+  // get or initialize and get property (window.___jsl.H['PROPERTY']) to empty object
+  //
+  // var G = function (a) {
+  //   return x(x(E, "H", y()), a, y());
+  // };
+  var __UM__INIT_AND_GET_JSL_H_PROP = function (__UM__H_PROPERTY_NAME) {
+    var JSL_H = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+      __UM__JSL,
+      "H",
+      __UM__OBJECT_CREATE()
+    );
+    return __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+      JSL_H,
+      __UM__H_PROPERTY_NAME,
+      __UM__OBJECT_CREATE()
+    );
   };
+
   var H = x(E, "perf", y()),
     K = x(H, "g", y()),
     ha = x(H, "i", y());
