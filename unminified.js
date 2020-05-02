@@ -243,9 +243,10 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     10
   );
   // now window.___jsl = {"I": 0, "hel": 10}
-  // known properties: "I", "hel", "dpo", "h"
+  // known properties: "I" (int), "hel" (int), "dpo", "h" (string?), "PQ" (array of functions that accept callback)
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
+  //
   // var F = function () {
   //   var a = aa.href;
   //   if (E.dpo) var b = E.h;
@@ -291,23 +292,50 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     return __UM__JSH_VALUE;
   };
 
-  var fa = function (a) {
-    var b = x(E, "PQ", []);
-    E.PQ = [];
-    var c = b.length;
-    if (0 === c) a();
-    else
-      for (
-        var d = 0,
-          e = function () {
-            ++d === c && a();
-          },
-          f = 0;
-        f < c;
-        f++
-      )
-        b[f](e);
+  // get array of functions from PQ, call them and call callback once all finished (PQ = Promise Queue?)
+  //
+  // var fa = function (a) {
+  //   var b = x(E, "PQ", []);
+  //   E.PQ = [];
+  //   var c = b.length;
+  //   if (0 === c) a();
+  //   else
+  //     for (
+  //       var d = 0,
+  //         e = function () {
+  //           ++d === c && a();
+  //         },
+  //         f = 0;
+  //       f < c;
+  //       f++
+  //     )
+  //       b[f](e);
+  // };
+  var __UM__ASYNC_QUEUE = function (__UM__CALLBACK) {
+    var __UM__JSL_PQ_ARRAY = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+      __UM__JSL,
+      "PQ",
+      []
+    );
+    __UM__JSL["PQ"] = [];
+    var __UM__PQ_LENGTH = __UM__JSL_PQ_ARRAY.length;
+    if (__UM__PQ_LENGTH === 0) {
+      __UM__CALLBACK();
+    } else {
+      var __UM__SOME_COUNTER = 0;
+      var __UM__CALL_CALLBACK_WHEN_ALL_SETTLED = function () {
+        __UM__SOME_COUNTER += 1;
+        console.log({ __UM__SOME_COUNTER });
+        if (__UM__SOME_COUNTER === __UM__PQ_LENGTH) {
+          __UM__CALLBACK();
+        }
+      };
+      for (__UM__INDEX = 0; __UM__INDEX < __UM__PQ_LENGTH; __UM__INDEX++) {
+        __UM__JSL_PQ_ARRAY[__UM__INDEX](__UM__CALL_CALLBACK_WHEN_ALL_SETTLED);
+      }
+    }
   };
+
   var G = function (a) {
     return x(x(E, "H", y()), a, y());
   };
