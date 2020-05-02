@@ -401,8 +401,13 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     []
   );
 
-  y();
-  y();
+  // ???(0006) doesn't seem to affect anything, probably very smart performance hack
+  //
+  // y();
+  // y();
+  __UM__OBJECT_CREATE();
+  __UM__OBJECT_CREATE();
+
   var L = function (a, b, c) {
       var d = H.r;
       "function" === typeof d ? d(a, b, c) : d.push([a, b, c]);
