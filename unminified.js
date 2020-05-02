@@ -208,7 +208,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     var __UM__EMPTY_OBJECT;
     if (Object.create && __UM__NATIVE_CODE_REGEXP.test(Object.create)) {
       // if function exists and it is native
-      __UM__EMPTY_OBJECT = Object.create(null)
+      __UM__EMPTY_OBJECT = Object.create(null);
     } else {
       __UM__EMPTY_OBJECT = {};
       for (var __UM__PROPERTY in __UM__EMPTY_OBJECT) {
@@ -217,9 +217,13 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       }
     }
     return __UM__EMPTY_OBJECT;
-  }
+  };
   // D = x(q, "gapi", {});
-  var __UM__GAPI = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(__UM__WINDOW, "gapi", {});
+  var __UM__GAPI = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+    __UM__WINDOW,
+    "gapi",
+    {}
+  );
 
   // var E;
   // E = x(q, "___jsl", y());
@@ -227,45 +231,86 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // x(E, "hel", 10);
   // var __UM__SOME_VARIABLE;
   // initialize window.___jsl as {}
-  __UM__JSL = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(__UM__WINDOW, "___jsl", __UM__OBJECT_CREATE());
+  __UM__JSL = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+    __UM__WINDOW,
+    "___jsl",
+    __UM__OBJECT_CREATE()
+  );
   __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(__UM__JSL, "I", 0);
-  __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(__UM__JSL, "hel", 10);
+  __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+    __UM__JSL,
+    "hel",
+    10
+  );
   // now window.___jsl = {"I": 0, "hel": 10}
+  // known properties: "I", "hel", "dpo", "h"
 
-  var F = function () {
-      var a = aa.href;
-      if (E.dpo) var b = E.h;
-      else {
-        b = E.h;
-        var c = /([#].*&|[#])jsh=([^&#]*)/g,
-          d = /([?#].*&|[?#])jsh=([^&#]*)/g;
-        if ((a = a && (c.exec(a) || d.exec(a))))
+  // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
+  // var F = function () {
+  //   var a = aa.href;
+  //   if (E.dpo) var b = E.h;
+  //   else {
+  //     b = E.h;
+  //     var c = /([#].*&|[#])jsh=([^&#]*)/g,
+  //       d = /([?#].*&|[?#])jsh=([^&#]*)/g;
+  //     if ((a = a && (c.exec(a) || d.exec(a))))
+  //       try {
+  //         b = decodeURIComponent(a[2]);
+  //       } catch (e) {}
+  //   }
+  //   return b;
+  // };
+  var __UM__GET_JSH_VALUE = function () {
+    var __UM__WINDOW_LOCATION_HREF = __UM__WINDOW_LOCATION.href;
+
+    if (__UM__JSL.dpo) {
+      var __UM__JSH_VALUE = __UM__JSL.h;
+    } else {
+      __UM__JSH_VALUE = __UM__JSL.h;
+
+      var __UM__JSH_FROM_URL_HASH_ONLY_REGEXP = /([#].*&|[#])jsh=([^&#]*)/g;
+      var __UM__JSH_FROM_URL_HASH_OR_QUERY_REGEXP = /([?#].*&|[?#])jsh=([^&#]*)/g;
+
+      if (__UM__WINDOW_LOCATION_HREF) {
+        var hashOnlyMatch = __UM__JSH_FROM_URL_HASH_ONLY_REGEXP.exec(
+          __UM__WINDOW_LOCATION_HREF
+        );
+        var hashOrQueryMatch = __UM__JSH_FROM_URL_HASH_OR_QUERY_REGEXP.exec(
+          __UM__WINDOW_LOCATION_HREF
+        );
+
+        var match = hashOnlyMatch || hashOrQueryMatch;
+
+        if (match) {
           try {
-            b = decodeURIComponent(a[2]);
+            __UM__JSH_VALUE = decodeURIComponent(match[2]); // ...#jsh=thisWillBeValue
           } catch (e) {}
+        }
       }
-      return b;
-    },
-    fa = function (a) {
-      var b = x(E, "PQ", []);
-      E.PQ = [];
-      var c = b.length;
-      if (0 === c) a();
-      else
-        for (
-          var d = 0,
-            e = function () {
-              ++d === c && a();
-            },
-            f = 0;
-          f < c;
-          f++
-        )
-          b[f](e);
-    },
-    G = function (a) {
-      return x(x(E, "H", y()), a, y());
-    };
+    }
+    return __UM__JSH_VALUE;
+  };
+
+  var fa = function (a) {
+    var b = x(E, "PQ", []);
+    E.PQ = [];
+    var c = b.length;
+    if (0 === c) a();
+    else
+      for (
+        var d = 0,
+          e = function () {
+            ++d === c && a();
+          },
+          f = 0;
+        f < c;
+        f++
+      )
+        b[f](e);
+  };
+  var G = function (a) {
+    return x(x(E, "H", y()), a, y());
+  };
   var H = x(E, "perf", y()),
     K = x(H, "g", y()),
     ha = x(H, "i", y());
