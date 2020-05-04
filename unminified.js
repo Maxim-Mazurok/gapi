@@ -668,29 +668,91 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     return __UM__LOAD_URL;
   };
 
-  var ra = function (a, b, c, d) {
-    a = qa(a);
-    ka.test(c) || S("invalid_callback");
-    b = U(b);
-    d = d && d.length ? U(d) : null;
-    var e = function (f) {
-      return encodeURIComponent(f).replace(/%2C/g, ",");
+  // generates path based on some arguments
+  //
+  // var ra = function (a, b, c, d) {
+  //   a = qa(a);
+  //   ka.test(c) || S("invalid_callback");
+  //   b = U(b);
+  //   d = d && d.length ? U(d) : null;
+  //   var e = function (f) {
+  //     return encodeURIComponent(f).replace(/%2C/g, ",");
+  //   };
+  //   return [
+  //     encodeURIComponent(a.pathPrefix)
+  //       .replace(/%2C/g, ",")
+  //       .replace(/%2F/g, "/"),
+  //     "/k=",
+  //     e(a.version),
+  //     "/m=",
+  //     e(b),
+  //     d ? "/exm=" + e(d) : "",
+  //     "/rt=j/sv=1/d=1/ed=1",
+  //     a.b ? "/am=" + e(a.b) : "",
+  //     a.l ? "/rs=" + e(a.l) : "",
+  //     a.o ? "/t=" + e(a.o) : "",
+  //     "/cb=",
+  //     e(c),
+  //   ].join("");
+  // };
+  var __UM__GENERATE_PATH = function (
+    __UM__PATH,
+    __UM__ARRAY_1,
+    __UM__CALLBACK, // string?
+    __UM__ARRAY_2 // optional
+  ) {
+    var __UM__PARSED_PATH = __UM__PARSE_PATH(__UM__PATH); // --- (__UM__PATH)
+
+    if (!__UM__GAPI_LOADED_REGEXP.test(__UM__ARG_3)) {
+      __UM__THROW_BAD_HINT_ERROR("invalid_callback");
+    }
+
+    var __UM__CLEANED_STRING_1 = __UM__CLEAN_ARRAY_OF_STRINGS_AND_STRINGIFY(
+      __UM__ARRAY_1
+    ); // --- (__UM__ARRAY)
+
+    var __UM__CLEANED_STRING_2 = null; // --- (__UM__ARRAY_2)
+    if (__UM__ARRAY_2 && __UM__ARRAY_2.length) {
+      __UM__CLEANED_STRING_2 = __UM__CLEAN_ARRAY_OF_STRINGS_AND_STRINGIFY(
+        __UM__ARRAY_2
+      );
+    }
+
+    var __UM__URL_ENCODE_EXCEPT_COMMA = function (__UM__STRING) {
+      return encodeURIComponent(__UM__STRING).replace(/%2C/g, ",");
     };
+
     return [
-      encodeURIComponent(a.pathPrefix)
+      encodeURIComponent(__UM__PARSED_PATH.pathPrefix)
         .replace(/%2C/g, ",")
         .replace(/%2F/g, "/"),
+
       "/k=",
-      e(a.version),
+      __UM__URL_ENCODE_EXCEPT_COMMA(__UM__PARSED_PATH.version),
+
       "/m=",
-      e(b),
-      d ? "/exm=" + e(d) : "",
+      __UM__URL_ENCODE_EXCEPT_COMMA(__UM__CLEANED_STRING_1),
+
+      __UM__CLEANED_STRING_2
+        ? "/exm" + __UM__URL_ENCODE_EXCEPT_COMMA(__UM__CLEANED_STRING_2)
+        : "",
+
       "/rt=j/sv=1/d=1/ed=1",
-      a.b ? "/am=" + e(a.b) : "",
-      a.l ? "/rs=" + e(a.l) : "",
-      a.o ? "/t=" + e(a.o) : "",
+
+      __UM__PARSED_PATH.b
+        ? "/am=" + __UM__URL_ENCODE_EXCEPT_COMMA(__UM__PARSED_PATH.b)
+        : "",
+
+      __UM__PARSED_PATH.l
+        ? "/rs=" + __UM__URL_ENCODE_EXCEPT_COMMA(__UM__PARSED_PATH.l)
+        : "",
+
+      __UM__PARSED_PATH.o
+        ? "/t=" + __UM__URL_ENCODE_EXCEPT_COMMA(__UM__PARSED_PATH.o)
+        : "",
+
       "/cb=",
-      e(c),
+      __UM__URL_ENCODE_EXCEPT_COMMA(__UM__CALLBACK),
     ].join("");
   };
 
