@@ -594,7 +594,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // var ia = /^(\/[a-zA-Z0-9_\-]+)+$/;
   var __UM__URL_PARTS_REGEXP = /^(\/[a-zA-Z0-9_\-]+)+$/; // ??? maybe not URL parts. Like /test-1/test_2/test
   // var T = [/\/amp\//, /\/amp$/, /^\/amp$/];
-  var __UM__AMP_REGEXP = [/\/amp\//, /\/amp$/, /^\/amp$/];
+  var __UM__AMP_REGEXPS = [/\/amp\//, /\/amp$/, /^\/amp$/];
   // var ja = /^[a-zA-Z0-9\-_\.,!]+$/;
   var __UM__AZ_09_PUNCTUATION_REGEXP = /^[a-zA-Z0-9\-_\.,!]+$/; // ??? why escape minus and dot ?
   // var ka = /^gapi\.loaded_[0-9]+$/;
@@ -693,33 +693,122 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       e(c),
     ].join("");
   };
-  var qa = function (a) {
-    "/" !== a.charAt(0) && S("relative path");
-    for (var b = a.substring(1).split("/"), c = []; b.length; ) {
-      a = b.shift();
-      if (!a.length || 0 == a.indexOf(".")) S("empty/relative directory");
-      else if (0 < a.indexOf("=")) {
-        b.unshift(a);
-        break;
+
+  // parses path/url
+  // returns path before props, and some props
+  //
+  // var qa = function (a) {
+  //   "/" !== a.charAt(0) && S("relative path");
+  //   for (var b = a.substring(1).split("/"), c = []; b.length; ) {
+  //     a = b.shift();
+  //     if (!a.length || 0 == a.indexOf(".")) S("empty/relative directory");
+  //     else if (0 < a.indexOf("=")) {
+  //       b.unshift(a);
+  //       break;
+  //     }
+  //     c.push(a);
+  //   }
+  //   a = {};
+  //   for (var d = 0, e = b.length; d < e; ++d) {
+  //     var f = b[d].split("="),
+  //       l = decodeURIComponent(f[0]),
+  //       k = decodeURIComponent(f[1]);
+  //     2 == f.length && l && k && (a[l] = a[l] || k);
+  //   }
+  //   b = "/" + c.join("/");
+  //   ia.test(b) || S("invalid_prefix");
+  //   c = 0;
+  //   for (d = T.length; c < d; ++c) T[c].test(b) && S("invalid_prefix");
+  //   c = V(a, "k", !0);
+  //   d = V(a, "am");
+  //   e = V(a, "rs");
+  //   a = V(a, "t");
+  //   return { pathPrefix: b, version: c, b: d, l: e, o: a };
+  // };
+  var __UM__PARSE_PATH = function (__UM__ABSOLUTE_PATH) {
+    if (__UM__ABSOLUTE_PATH.charAt(0) !== "/") {
+      __UM__THROW_BAD_HINT_ERROR("relative path");
+    }
+    var __UM__PATH_PARTS = __UM__ABSOLUTE_PATH.substring(1).split("/");
+    var __UM__SOME_PATH_PARTS = [];
+
+    for (; __UM__PATH_PARTS.length; ) {
+      // basically, while __UM__PATH_PARTS.length > 0
+      var __UM__PATH_PART = __UM__PATH_PARTS.shift(); // get and remove first element
+      if (
+        !__UM__PATH_PART.length || // empty path part, i.e. "//"
+        __UM__PATH_PART.indexOf(".") === 0 // starts with "." (relative directory)
+      ) {
+        __UM__THROW_BAD_HINT_ERROR("empty/relative directory");
+      } else if (__UM__PATH_PART.indexOf("=") > 0) {
+        // contains assignment, like "/cb=something"
+        __UM__PATH_PARTS.unshift(__UM__PATH_PART); // prepend
+        break; // exit from "for" loop
       }
-      c.push(a);
+      __UM__SOME_PATH_PARTS.push(__UM__PATH_PART);
     }
-    a = {};
-    for (var d = 0, e = b.length; d < e; ++d) {
-      var f = b[d].split("="),
-        l = decodeURIComponent(f[0]),
-        k = decodeURIComponent(f[1]);
-      2 == f.length && l && k && (a[l] = a[l] || k);
+
+    // at this point, __UM__SOME_PATH_PARTS contains all parts before "/some=some/"
+    // and __UM__PATH_PARTS contains all other parts, including "/some=some/"
+
+    var __UM__KEY_VALUE_OBJ = {}; // --- (__UM__ABSOLUTE_PATH)
+    // known props (all string):
+    //  k - required - version
+    //  am - optional
+    //  rs - optional
+    //  t - optional
+
+    for (
+      var __UM__INDEX = 0;
+      __UM__INDEX < __UM__PATH_PARTS.length;
+      __UM__INDEX++
+    ) {
+      var __UM__KEY_VALUE_ARRAY = __UM__PATH_PARTS[__UM__INDEX].split("=");
+      var __UM__KEY = decodeURIComponent(__UM__KEY_VALUE_ARRAY[0]);
+      var __UM__VALUE = decodeURIComponent(__UM__KEY_VALUE_ARRAY[1]);
+      if (__UM__KEY_VALUE_ARRAY.length === 2 && __UM__KEY && __UM__VALUE) {
+        __UM__KEY_VALUE_OBJ[__UM__KEY] =
+          __UM__KEY_VALUE_OBJ[__UM__KEY] || __UM__VALUE; // prefer first key value, don't override
+      }
     }
-    b = "/" + c.join("/");
-    ia.test(b) || S("invalid_prefix");
-    c = 0;
-    for (d = T.length; c < d; ++c) T[c].test(b) && S("invalid_prefix");
-    c = V(a, "k", !0);
-    d = V(a, "am");
-    e = V(a, "rs");
-    a = V(a, "t");
-    return { pathPrefix: b, version: c, b: d, l: e, o: a };
+
+    var __UM__PATH_PREFIX = "/" + __UM__SOME_PATH_PARTS.join("/"); // --- (__UM__PATH_PARTS)
+
+    if (!__UM__URL_PARTS_REGEXP.test(__UM__PATH_PREFIX)) {
+      __UM__THROW_BAD_HINT_ERROR("invalid_prefix");
+    }
+
+    __UM__AMP_REGEXPS.forEach(function (__UM__AMP_REGEXP) {
+      if (!__UM__AMP_REGEXP.test(__UM__PATH_PREFIX)) {
+        __UM__THROW_BAD_HINT_ERROR("invalid_prefix");
+      }
+    });
+
+    var __UM__PARAM_k = __UM__VERIFY_AND_GET_OBJECT_PROPERTY(
+      __UM__KEY_VALUE_OBJ,
+      "k",
+      true
+    );
+    var __UM__PARAM_am = __UM__VERIFY_AND_GET_OBJECT_PROPERTY(
+      __UM__KEY_VALUE_OBJ,
+      "am"
+    );
+    var __UM__PARAM_rs = __UM__VERIFY_AND_GET_OBJECT_PROPERTY(
+      __UM__KEY_VALUE_OBJ,
+      "rs"
+    );
+    var __UM__PARAM_t = __UM__VERIFY_AND_GET_OBJECT_PROPERTY(
+      __UM__KEY_VALUE_OBJ,
+      "t"
+    );
+
+    return {
+      pathPrefix: __UM__PATH_PREFIX,
+      version: __UM__PARAM_k,
+      b: __UM__PARAM_am,
+      l: __UM__PARAM_rs,
+      o: __UM__PARAM_t,
+    };
   };
 
   // replaces "." and "-" to "_" in strings in array,
@@ -755,12 +844,31 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     return __UM__ARRAY_OF_STRINGS_CLEANED.join(",");
   };
 
-  var V = function (a, b, c) {
-    a = a[b];
-    !a && c && S("missing: " + b);
-    if (a) {
-      if (ja.test(a)) return a;
-      S("invalid: " + b);
+  // checks that prop exists on obj, (or it's optional) and value matches regexp
+  //
+  // var V = function (a, b, c) {
+  //   a = a[b];
+  //   !a && c && S("missing: " + b);
+  //   if (a) {
+  //     if (ja.test(a)) return a;
+  //     S("invalid: " + b);
+  //   }
+  //   return null;
+  // };
+  var __UM__VERIFY_AND_GET_OBJECT_PROPERTY = function (
+    __UM__OBJ,
+    __UM__OBJ_PROPERTY,
+    __UM__REQUIRED_FLAG
+  ) {
+    var __UM__VALUE = __UM__OBJ[__UM__OBJ_PROPERTY]; // --- (__UM__OBJ)
+    if (!__UM__VALUE && __UM__REQUIRED_FLAG) {
+      __UM__THROW_BAD_HINT_ERROR("missing: " + __UM__OBJ_PROPERTY);
+    }
+    if (__UM__VALUE) {
+      if (__UM__AZ_09_PUNCTUATION_REGEXP.test(__UM__VALUE)) {
+        return __UM__VALUE;
+      }
+      __UM__THROW_BAD_HINT_ERROR("invalid: " + __UM__OBJ_PROPERTY);
     }
     return null;
   };
