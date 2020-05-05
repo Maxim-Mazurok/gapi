@@ -518,9 +518,12 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       .replace(/,/g, "_");
   };
 
-  // ???(0008) - it's OK, it's being used lated in tht code
+  // it's being used later in the code
+  // known props:
+  //   m (function) - generate load url, probably (__UM__GENERATE_LOAD_URL)
+  //
   // var O = y();
-  var __UM__SOME_EMPTY_OBJECT = __UM__OBJECT_CREATE();
+  var __UM__GENERATE_LOAD_URL_OBJECT = __UM__OBJECT_CREATE();
 
   // ???(0009)
   // var R = [];
@@ -630,7 +633,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     var __UM__ARG_1_AS_ARRAY = __UM__ARG_1.split(";");
     var __UM__ARG_1_AS_ARRAY_FIRST = __UM__ARG_1_AS_ARRAY.shift();
     var __UM__GENERATE_LOAD_URL = // hint processor
-      __UM__SOME_EMPTY_OBJECT[__UM__ARG_1_AS_ARRAY_FIRST];
+      __UM__GENERATE_LOAD_URL_OBJECT[__UM__ARG_1_AS_ARRAY_FIRST];
     var __UM__LOAD_URL = null;
     if (__UM__GENERATE_LOAD_URL) {
       __UM__LOAD_URL = __UM__GENERATE_LOAD_URL(
@@ -960,10 +963,30 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     return __UM__JSH_VALUE;
   };
 
-  O.m = function (a, b, c, d) {
-    (a = a[0]) || S("missing_hint");
-    return "https://apis.google.com" + ra(a, b, c, d);
+  // generate load url
+  //
+  // O.m = function (a, b, c, d) {
+  //   (a = a[0]) || S("missing_hint");
+  //   return "https://apis.google.com" + ra(a, b, c, d);
+  // };
+  __UM__GENERATE_LOAD_URL_OBJECT.m = function (
+    __UM__HINTS_ARRAY, // array?
+    __UM__ARRAY_1,
+    __UM__CALLBACK, // string?
+    __UM__ARRAY_2 // optional
+  ) {
+    var __UM__HINT = __UM__HINTS_ARRAY[0]; // --- (__UM__HINTS_ARRAY)
+    return (
+      "https://apis.google.com" +
+      __UM__GENERATE_PATH(
+        __UM__HINT,
+        __UM__ARRAY_1,
+        __UM__CALLBACK,
+        __UM__ARRAY_2
+      )
+    );
   };
+
   var W = decodeURI("%73cript"),
     X = /^[-+_0-9\/A-Za-z]+={0,2}$/,
     Y = function (a, b) {
