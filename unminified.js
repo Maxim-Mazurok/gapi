@@ -987,178 +987,176 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     );
   };
 
-  var W = decodeURI("%73cript"),
-    X = /^[-+_0-9\/A-Za-z]+={0,2}$/,
-    Y = function (a, b) {
-      for (var c = [], d = 0; d < a.length; ++d) {
-        var e = a[d],
-          f;
-        if ((f = e)) {
-          a: {
-            for (f = 0; f < b.length; f++) if (b[f] === e) break a;
-            f = -1;
-          }
-          f = 0 > f;
+  var W = decodeURI("%73cript");
+  var X = /^[-+_0-9\/A-Za-z]+={0,2}$/;
+  var Y = function (a, b) {
+    for (var c = [], d = 0; d < a.length; ++d) {
+      var e = a[d],
+        f;
+      if ((f = e)) {
+        a: {
+          for (f = 0; f < b.length; f++) if (b[f] === e) break a;
+          f = -1;
         }
-        f && c.push(e);
+        f = 0 > f;
       }
-      return c;
-    },
-    Z = function () {
-      var a = E.nonce;
-      return void 0 !== a
-        ? a && a === String(a) && a.match(X)
-          ? a
-          : (E.nonce = null)
-        : v.querySelector
-        ? (a = v.querySelector("script[nonce]"))
-          ? ((a = a.nonce || a.getAttribute("nonce") || ""),
-            a && a === String(a) && a.match(X)
-              ? (E.nonce = a)
-              : (E.nonce = null))
-          : null
-        : null;
-    },
-    ua = function (a) {
-      if ("loading" != v.readyState) ta(a);
-      else {
-        var b = Z(),
-          c = "";
-        null !== b && (c = ' nonce="' + b + '"');
-        a = "<" + W + ' src="' + encodeURI(a) + '"' + c + "></" + W + ">";
-        v.write(a);
+      f && c.push(e);
+    }
+    return c;
+  };
+  var Z = function () {
+    var a = E.nonce;
+    return void 0 !== a
+      ? a && a === String(a) && a.match(X)
+        ? a
+        : (E.nonce = null)
+      : v.querySelector
+      ? (a = v.querySelector("script[nonce]"))
+        ? ((a = a.nonce || a.getAttribute("nonce") || ""),
+          a && a === String(a) && a.match(X) ? (E.nonce = a) : (E.nonce = null))
+        : null
+      : null;
+  };
+  var ua = function (a) {
+    if ("loading" != v.readyState) ta(a);
+    else {
+      var b = Z(),
+        c = "";
+      null !== b && (c = ' nonce="' + b + '"');
+      a = "<" + W + ' src="' + encodeURI(a) + '"' + c + "></" + W + ">";
+      v.write(a);
+    }
+  };
+  var ta = function (a) {
+    var b = v.createElement(W);
+    b.setAttribute("src", a);
+    a = Z();
+    null !== a && b.setAttribute("nonce", a);
+    b.async = "true";
+    (a = v.getElementsByTagName(W)[0])
+      ? a.parentNode.insertBefore(b, a)
+      : (v.head || v.body || v.documentElement).appendChild(b);
+  };
+  var va = function (a, b) {
+    var c = b && b._c;
+    if (c)
+      for (var d = 0; d < R.length; d++) {
+        var e = R[d][0],
+          f = R[d][1];
+        f && Object.prototype.hasOwnProperty.call(c, e) && f(c[e], a, b);
       }
-    },
-    ta = function (a) {
-      var b = v.createElement(W);
-      b.setAttribute("src", a);
-      a = Z();
-      null !== a && b.setAttribute("nonce", a);
-      b.async = "true";
-      (a = v.getElementsByTagName(W)[0])
-        ? a.parentNode.insertBefore(b, a)
-        : (v.head || v.body || v.documentElement).appendChild(b);
-    },
-    va = function (a, b) {
-      var c = b && b._c;
-      if (c)
-        for (var d = 0; d < R.length; d++) {
-          var e = R[d][0],
-            f = R[d][1];
-          f && Object.prototype.hasOwnProperty.call(c, e) && f(c[e], a, b);
-        }
-    },
-    xa = function (a, b, c) {
-      wa(function () {
-        var d = b === F() ? x(D, "_", y()) : y();
-        d = x(G(b), "_", d);
-        a(d);
-      }, c);
-    },
-    za = function (a, b) {
-      var c = b || {};
-      "function" == typeof b && ((c = {}), (c.callback = b));
-      va(a, c);
-      b = a ? a.split(":") : [];
-      var d = c.h || sa(),
-        e = x(E, "ah", y());
-      if (e["::"] && b.length) {
-        a = [];
-        for (var f = null; (f = b.shift()); ) {
-          var l = f.split(".");
-          l = e[f] || e[(l[1] && "ns:" + l[0]) || ""] || d;
-          var k = (a.length && a[a.length - 1]) || null,
-            w = k;
-          (k && k.hint == l) || ((w = { hint: l, c: [] }), a.push(w));
-          w.c.push(f);
-        }
-        var z = a.length;
-        if (1 < z) {
-          var A = c.callback;
-          A &&
-            (c.callback = function () {
-              0 == --z && A();
-            });
-        }
-        for (; (b = a.shift()); ) ya(b.c, c, b.hint);
-      } else ya(b || [], c, d);
-    },
-    ya = function (a, b, c) {
-      a = da(a) || [];
-      var d = b.callback,
-        e = b.config,
-        f = b.timeout,
-        l = b.ontimeout,
-        k = b.onerror,
-        w = void 0;
-      "function" == typeof k && (w = k);
-      var z = null,
-        A = !1;
-      if ((f && !l) || (!f && l))
-        throw "Timeout requires both the timeout parameter and ontimeout parameter to be set";
-      k = x(G(c), "r", []).sort();
-      var P = x(G(c), "L", []).sort(),
-        I = [].concat(k),
-        ea = function (u, B) {
-          if (A) return 0;
-          q.clearTimeout(z);
-          P.push.apply(P, p);
-          var C = ((D || {}).config || {}).update;
-          C ? C(e) : e && x(E, "cu", []).push(e);
-          if (B) {
-            N("me0", u, I);
-            try {
-              xa(B, c, w);
-            } finally {
-              N("me1", u, I);
-            }
+  };
+  var xa = function (a, b, c) {
+    wa(function () {
+      var d = b === F() ? x(D, "_", y()) : y();
+      d = x(G(b), "_", d);
+      a(d);
+    }, c);
+  };
+  var za = function (a, b) {
+    var c = b || {};
+    "function" == typeof b && ((c = {}), (c.callback = b));
+    va(a, c);
+    b = a ? a.split(":") : [];
+    var d = c.h || sa(),
+      e = x(E, "ah", y());
+    if (e["::"] && b.length) {
+      a = [];
+      for (var f = null; (f = b.shift()); ) {
+        var l = f.split(".");
+        l = e[f] || e[(l[1] && "ns:" + l[0]) || ""] || d;
+        var k = (a.length && a[a.length - 1]) || null,
+          w = k;
+        (k && k.hint == l) || ((w = { hint: l, c: [] }), a.push(w));
+        w.c.push(f);
+      }
+      var z = a.length;
+      if (1 < z) {
+        var A = c.callback;
+        A &&
+          (c.callback = function () {
+            0 == --z && A();
+          });
+      }
+      for (; (b = a.shift()); ) ya(b.c, c, b.hint);
+    } else ya(b || [], c, d);
+  };
+  var ya = function (a, b, c) {
+    a = da(a) || [];
+    var d = b.callback,
+      e = b.config,
+      f = b.timeout,
+      l = b.ontimeout,
+      k = b.onerror,
+      w = void 0;
+    "function" == typeof k && (w = k);
+    var z = null,
+      A = !1;
+    if ((f && !l) || (!f && l))
+      throw "Timeout requires both the timeout parameter and ontimeout parameter to be set";
+    k = x(G(c), "r", []).sort();
+    var P = x(G(c), "L", []).sort(),
+      I = [].concat(k),
+      ea = function (u, B) {
+        if (A) return 0;
+        q.clearTimeout(z);
+        P.push.apply(P, p);
+        var C = ((D || {}).config || {}).update;
+        C ? C(e) : e && x(E, "cu", []).push(e);
+        if (B) {
+          N("me0", u, I);
+          try {
+            xa(B, c, w);
+          } finally {
+            N("me1", u, I);
           }
-          return 1;
-        };
-      0 < f &&
-        (z = q.setTimeout(function () {
-          A = !0;
-          l();
-        }, f));
-      var p = Y(a, P);
-      if (p.length) {
-        p = Y(a, k);
-        var r = x(E, "CP", []),
-          t = r.length;
-        r[t] = function (u) {
-          if (!u) return 0;
-          N("ml1", p, I);
-          var B = function (J) {
-              r[t] = null;
-              ea(p, u) &&
-                fa(function () {
-                  d && d();
-                  J();
-                });
-            },
-            C = function () {
-              var J = r[t + 1];
-              J && J();
-            };
-          0 < t && r[t - 1]
-            ? (r[t] = function () {
-                B(C);
-              })
-            : B(C);
-        };
-        if (p.length) {
-          var Q = "loaded_" + E.I++;
-          D[Q] = function (u) {
-            r[t](u);
-            D[Q] = null;
+        }
+        return 1;
+      };
+    0 < f &&
+      (z = q.setTimeout(function () {
+        A = !0;
+        l();
+      }, f));
+    var p = Y(a, P);
+    if (p.length) {
+      p = Y(a, k);
+      var r = x(E, "CP", []),
+        t = r.length;
+      r[t] = function (u) {
+        if (!u) return 0;
+        N("ml1", p, I);
+        var B = function (J) {
+            r[t] = null;
+            ea(p, u) &&
+              fa(function () {
+                d && d();
+                J();
+              });
+          },
+          C = function () {
+            var J = r[t + 1];
+            J && J();
           };
-          a = pa(c, p, "gapi." + Q, k);
-          k.push.apply(k, p);
-          N("ml0", p, I);
-          b.sync || q.___gapisync ? ua(a) : ta(a);
-        } else r[t](ba);
-      } else ea(p) && d && d();
-    };
+        0 < t && r[t - 1]
+          ? (r[t] = function () {
+              B(C);
+            })
+          : B(C);
+      };
+      if (p.length) {
+        var Q = "loaded_" + E.I++;
+        D[Q] = function (u) {
+          r[t](u);
+          D[Q] = null;
+        };
+        a = pa(c, p, "gapi." + Q, k);
+        k.push.apply(k, p);
+        N("ml0", p, I);
+        b.sync || q.___gapisync ? ua(a) : ta(a);
+      } else r[t](ba);
+    } else ea(p) && d && d();
+  };
   var wa = function (a, b) {
     if (E.hee && 0 < E.hel)
       try {
