@@ -945,10 +945,19 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // var ma = /\/\//g;
   var __UM__DOUBLE_SLASH_REGEXP = /\/\//g;
 
-  var sa = function () {
-    var a = F();
-    if (!a) throw Error("Bad hint");
-    return a;
+  // get jsh value, otherwise - throw error
+  //
+  // var sa = function () {
+  //   var a = F();
+  //   if (!a) throw Error("Bad hint");
+  //   return a;
+  // };
+  var __UM__GET_JSH_VALUE_OR_THROW = function () {
+    var __UM__JSH_VALUE = __UM__GET_JSH_VALUE();
+    if (!__UM__JSH_VALUE) {
+      throw Error("Bad hint");
+    }
+    return __UM__JSH_VALUE;
   };
 
   O.m = function (a, b, c, d) {
