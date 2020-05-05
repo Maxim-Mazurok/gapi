@@ -997,21 +997,55 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // var X = /^[-+_0-9\/A-Za-z]+={0,2}$/;
   var __UM__SOMETHING_EQUALS_REGEXP = /^[-+_0-9\/A-Za-z]+={0,2}$/;
 
-  var Y = function (a, b) {
-    for (var c = [], d = 0; d < a.length; ++d) {
-      var e = a[d],
-        f;
-      if ((f = e)) {
-        a: {
-          for (f = 0; f < b.length; f++) if (b[f] === e) break a;
-          f = -1;
+  // removes elements from arr1 that are present in arr2 and returns resulting array
+  //
+  // var Y = function (a, b) {
+  //   for (var c = [], d = 0; d < a.length; ++d) {
+  //     var e = a[d],
+  //       f;
+  //     if ((f = e)) {
+  //       a: {
+  //         for (f = 0; f < b.length; f++) if (b[f] === e) break a;
+  //         f = -1;
+  //       }
+  //       f = 0 > f;
+  //     }
+  //     f && c.push(e);
+  //   }
+  //   return c;
+  // };
+  var __UM__REMOVE_COMMON_ELEMENTS_FROM_ARRAY = function (__UM__ARRAY_1, __UM__ARRAY_2) {
+    var __UM__RESULTING_ARRAY = [];
+    for (
+      var __UM__INDEX = 0;
+      __UM__INDEX < __UM__ARRAY_1.length;
+      __UM__INDEX++
+    ) {
+      var __UM__ARR_ELEMENT = __UM__ARRAY_1[__UM__INDEX];
+      var __UM__ANOTHER_INDEX;
+      var __UM__NOT_FOUND_ELEM;
+      if (__UM__ARR_ELEMENT) {
+        __um__code_block: {
+          for (
+            __UM__ANOTHER_INDEX = 0;
+            __UM__ANOTHER_INDEX < __UM__ARRAY_2.length;
+            __UM__ANOTHER_INDEX++
+          ) {
+            if (__UM__ARRAY_2[__UM__ANOTHER_INDEX] === __UM__ARR_ELEMENT) {
+              break __um__code_block;
+            }
+          }
+          __UM__ANOTHER_INDEX = -1; // if the loop didn't break
         }
-        f = 0 > f;
+        __UM__NOT_FOUND_ELEM = __UM__ANOTHER_INDEX < 0;
       }
-      f && c.push(e);
+      if (__UM__NOT_FOUND_ELEM) {
+        __UM__RESULTING_ARRAY.push(__UM__ARR_ELEMENT);
+      }
     }
-    return c;
+    return __UM__RESULTING_ARRAY;
   };
+
   var Z = function () {
     var a = E.nonce;
     return void 0 !== a
