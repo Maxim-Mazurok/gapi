@@ -227,16 +227,15 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
 
   // var E;
   // E = x(q, "___jsl", y());
-  // x(E, "I", 0);
-  // x(E, "hel", 10);
-  // var __UM__SOME_VARIABLE;
   // initialize window.___jsl as {}
-  __UM__JSL = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+  var __UM__JSL = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
     __UM__WINDOW,
     "___jsl",
     __UM__OBJECT_CREATE()
   );
+  // x(E, "I", 0);
   __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(__UM__JSL, "I", 0);
+  // x(E, "hel", 10);
   __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
     __UM__JSL,
     "hel",
@@ -258,6 +257,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //            "_p" (object)
   //        "r" (array (of arrays) by default, or function)
   //    "us" (array)
+  //    "nonce"
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
   //
@@ -995,7 +995,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // "s0_mE" or "s0_mE=" or "s0_mE=="
   //
   // var X = /^[-+_0-9\/A-Za-z]+={0,2}$/;
-  var __UM__SOMETHING_EQUALS_REGEXP = /^[-+_0-9\/A-Za-z]+={0,2}$/;
+  var __UM__NONCE_REGEXP = /^[-+_0-9\/A-Za-z]+={0,2}$/;
 
   // removes elements from arr1 that are present in arr2 and returns resulting array
   //
@@ -1014,7 +1014,10 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //   }
   //   return c;
   // };
-  var __UM__REMOVE_COMMON_ELEMENTS_FROM_ARRAY = function (__UM__ARRAY_1, __UM__ARRAY_2) {
+  var __UM__REMOVE_COMMON_ELEMENTS_FROM_ARRAY = function (
+    __UM__ARRAY_1,
+    __UM__ARRAY_2
+  ) {
     var __UM__RESULTING_ARRAY = [];
     for (
       var __UM__INDEX = 0;
@@ -1046,19 +1049,56 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     return __UM__RESULTING_ARRAY;
   };
 
-  var Z = function () {
-    var a = E.nonce;
-    return void 0 !== a
-      ? a && a === String(a) && a.match(X)
-        ? a
-        : (E.nonce = null)
-      : v.querySelector
-      ? (a = v.querySelector("script[nonce]"))
-        ? ((a = a.nonce || a.getAttribute("nonce") || ""),
-          a && a === String(a) && a.match(X) ? (E.nonce = a) : (E.nonce = null))
-        : null
-      : null;
+  // try to get nonce from window.___jsl
+  // otherwise, try to get it from the first <script nonce="..."> element
+  //
+  // var Z = function () {
+  //   var a = E.nonce;
+  //   return void 0 !== a
+  //     ? a && a === String(a) && a.match(X)
+  //       ? a
+  //       : (E.nonce = null)
+  //     : v.querySelector
+  //     ? (a = v.querySelector("script[nonce]"))
+  //       ? ((a = a.nonce || a.getAttribute("nonce") || ""),
+  //         a && a === String(a) && a.match(X) ? (E.nonce = a) : (E.nonce = null))
+  //       : null
+  //     : null;
+  // };
+  var __UM__GET_JSL_NONCE = function () {
+    var __UM__JSL_nonce = __UM__JSL.nonce;
+    if (__UM__JSL_nonce !== undefined) {
+      if (
+        __UM__JSL_nonce &&
+        __UM__JSL_nonce === String(__UM__JSL_nonce) &&
+        __UM__JSL_nonce.match(__UM__NONCE_REGEXP)
+      ) {
+        return __UM__JSL_nonce;
+      } else {
+        return (__UM__JSL.nonce = null);
+      }
+    } else {
+      if (v.querySelector) {
+        var __UM__SCRIPT_NONCE = __UM__DOCUMENT.querySelector("script[nonce]"); // --- (__UM__JSL_nonce)
+        if (__UM__SCRIPT_NONCE) {
+          var __UM__SCRIPT_NONCE_VALUE =
+            __UM__SCRIPT_NONCE.nonce ||
+            __UM__SCRIPT_NONCE.getAttribute("nonce") ||
+            ""; // --- (__UM__SCRIPT_NONCE)
+          return __UM__SCRIPT_NONCE_VALUE &&
+            __UM__SCRIPT_NONCE_VALUE === String(__UM__SCRIPT_NONCE_VALUE) &&
+            __UM__SCRIPT_NONCE_VALUE.match(__UM__NONCE_REGEXP)
+            ? (__UM__JSL.nonce = __UM__SCRIPT_NONCE_VALUE)
+            : (__UM__JSL.nonce = null);
+        } else {
+          return null;
+        }
+      } else {
+        return null;
+      }
+    }
   };
+
   var ua = function (a) {
     if ("loading" != v.readyState) ta(a);
     else {
