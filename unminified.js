@@ -992,7 +992,11 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //var W = decodeURI("%73cript");
   var __UM__SCRIPT = decodeURI("%73cript");
 
-  var X = /^[-+_0-9\/A-Za-z]+={0,2}$/;
+  // "s0_mE" or "s0_mE=" or "s0_mE=="
+  //
+  // var X = /^[-+_0-9\/A-Za-z]+={0,2}$/;
+  var __UM__SOMETHING_EQUALS_REGEXP = /^[-+_0-9\/A-Za-z]+={0,2}$/;
+
   var Y = function (a, b) {
     for (var c = [], d = 0; d < a.length; ++d) {
       var e = a[d],
