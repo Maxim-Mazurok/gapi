@@ -987,7 +987,11 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     );
   };
 
-  var W = decodeURI("%73cript");
+  // well, "script"
+  //
+  //var W = decodeURI("%73cript");
+  var __UM__SCRIPT = decodeURI("%73cript");
+
   var X = /^[-+_0-9\/A-Za-z]+={0,2}$/;
   var Y = function (a, b) {
     for (var c = [], d = 0; d < a.length; ++d) {
