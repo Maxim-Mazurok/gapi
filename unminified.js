@@ -1099,26 +1099,72 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     }
   };
 
-  var ua = function (a) {
-    if ("loading" != v.readyState) ta(a);
-    else {
-      var b = Z(),
-        c = "";
-      null !== b && (c = ' nonce="' + b + '"');
-      a = "<" + W + ' src="' + encodeURI(a) + '"' + c + "></" + W + ">";
-      v.write(a);
+  // if document is not ready - document.write("<script src='' nonce=''>")
+  // otherwise - run __UM__APPEND_SCRIPT_TO_DOC
+  //
+  // var ua = function (a) {
+  //   if ("loading" != v.readyState) ta(a);
+  //   else {
+  //     var b = Z(),
+  //       c = "";
+  //     null !== b && (c = ' nonce="' + b + '"');
+  //     a = "<" + W + ' src="' + encodeURI(a) + '"' + c + "></" + W + ">";
+  //     v.write(a);
+  //   }
+  // };
+  var __UM__ADD_SCRIPT_TO_DOC = function (__UM__SCRIPT_URL) {
+    if (__UM__DOCUMENT.readyState !== "loading") {
+      __UM__APPEND_SCRIPT_TO_DOC(__UM__SCRIPT_URL);
+    } else {
+      var __UM__NONCE = __UM__GET_JSL_NONCE();
+      var __UM__NONCE_ATTR = "";
+      if (__UM__NONCE !== null) {
+        __UM__NONCE_ATTR = ` nonce="${__UM__NONCE}"`;
+      }
+      var __UM__SCRIPT_TAG = `<${__UM__SCRIPT} src="${encodeURI(
+        __UM__SCRIPT_URL
+      )}"${__UM__NONCE_ATTR}></${__UM__SCRIPT}>`; // --- (__UM__ARG)
+      __UM__DOCUMENT.write(__UM__SCRIPT_TAG);
     }
   };
-  var ta = function (a) {
-    var b = v.createElement(W);
-    b.setAttribute("src", a);
-    a = Z();
-    null !== a && b.setAttribute("nonce", a);
-    b.async = "true";
-    (a = v.getElementsByTagName(W)[0])
-      ? a.parentNode.insertBefore(b, a)
-      : (v.head || v.body || v.documentElement).appendChild(b);
+
+  // create <script src="" nonce="" async> and append to document head/body/html
+  //
+  // var ta = function (a) {
+  //   var b = v.createElement(W);
+  //   b.setAttribute("src", a);
+  //   a = Z();
+  //   null !== a && b.setAttribute("nonce", a);
+  //   b.async = "true";
+  //   (a = v.getElementsByTagName(W)[0])
+  //     ? a.parentNode.insertBefore(b, a)
+  //     : (v.head || v.body || v.documentElement).appendChild(b);
+  // };
+  var __UM__APPEND_SCRIPT_TO_DOC = function (__UM__SCRIPT_URL) {
+    var __UM__SCRIPT_ELEMENT = __UM__DOCUMENT.createElement(__UM__SCRIPT);
+    __UM__SCRIPT_ELEMENT.setAttribute("src", __UM__SCRIPT_URL);
+    var __UM__NONCE = __UM__GET_JSL_NONCE(); // --- (__UM__SCRIPT_URL)
+    if (__UM__NONCE !== null) {
+      __UM__SCRIPT_ELEMENT.setAttribute("nonce", __UM__NONCE);
+    }
+    __UM__SCRIPT_ELEMENT.async = "true"; // --- (__UM__NONCE)
+    var __UM__FIRST_SCRIPT_IN_DOC = __UM__DOCUMENT.getElementsByTagName(
+      __UM__SCRIPT
+    )[0];
+    if (__UM__FIRST_SCRIPT_IN_DOC) {
+      __UM__FIRST_SCRIPT_IN_DOC.parentNode.insertBefore(
+        __UM__SCRIPT_ELEMENT,
+        __UM__FIRST_SCRIPT_IN_DOC
+      );
+    } else {
+      var __UM__PARENT_ELEMENT =
+        __UM__DOCUMENT.head ||
+        __UM__DOCUMENT.body ||
+        __UM__DOCUMENT.documentElement;
+      __UM__PARENT_ELEMENT.appendChild(__UM__SCRIPT_ELEMENT);
+    }
   };
+
   var va = function (a, b) {
     var c = b && b._c;
     if (c)
