@@ -541,6 +541,8 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   };
 
   // ???(0010) what is is this all about?...
+  // looks like it contains func to configure (set props) of jsl
+  //
   // R.push([
   //   "jsl",
   //   function (a) {
@@ -559,7 +561,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     "jsl",
     function (__UM__SOME_OBJ) {
       for (var __UM__OBJ_PROP in __UM__SOME_OBJ) {
-        if (__UM__SOME_OBJ.hasOwnProperty(__UM__OBJ_PROP)) {
+        if (Object.prototype.hasOwnProperty.call(__UM__SOME_OBJ, __UM__OBJ_PROP)) { // Since we create objects like Object.create(null); https://stackoverflow.com/a/12017703/4536543
           var __UM__VALUE = __UM__SOME_OBJ[__UM__OBJ_PROP];
           if (typeof __UM__VALUE === "object") {
             __UM__JSL[
@@ -1165,15 +1167,34 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     }
   };
 
-  var va = function (a, b) {
-    var c = b && b._c;
-    if (c)
-      for (var d = 0; d < R.length; d++) {
-        var e = R[d][0],
-          f = R[d][1];
-        f && Object.prototype.hasOwnProperty.call(c, e) && f(c[e], a, b);
+  // calls funcs that set JSL props
+  //
+  // var va = function (a, b) {
+  //   var c = b && b._c;
+  //   if (c)
+  //     for (var d = 0; d < R.length; d++) {
+  //       var e = R[d][0],
+  //         f = R[d][1];
+  //       f && Object.prototype.hasOwnProperty.call(c, e) && f(c[e], a, b);
+  //     }
+  // };
+  var __UM__CALL_JSL_SET_FUNCS = function(__UM__ARG_1, __UM__OBJ) {
+    // __UM__OBJ known props:
+    //   _c (object)
+    //     jsl (object?)
+
+    var __UM__OBJ__c = __UM__OBJ && __UM__OBJ._c;
+    if (__UM__OBJ__c) {
+      for (var __UM__INDEX = 0; __UM__INDEX < __UM__SOME_ARRAY.length; __UM__INDEX++) {
+        var __UM__R_0_STRING = __UM__SOME_ARRAY[__UM__INDEX][0]; // like "jsl"
+        var __UM__R_1_FUNC = __UM__SOME_ARRAY[__UM__INDEX][1]; // function
+        if (__UM__R_1_FUNC && Object.prototype.hasOwnProperty.call(__UM__OBJ__c, __UM__R_0_STRING)) {
+          __UM__R_1_FUNC(__UM__OBJ__c[__UM__R_0_STRING], __UM__ARG_1, __UM__OBJ); // 2nd and 3rd args are ignored ???(0011)
+        }
       }
-  };
+    }
+  }
+
   var xa = function (a, b, c) {
     wa(function () {
       var d = b === F() ? x(D, "_", y()) : y();
