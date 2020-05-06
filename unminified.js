@@ -219,6 +219,8 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     return __UM__EMPTY_OBJECT;
   };
   // D = x(q, "gapi", {});
+  // known gapi props:
+  //   _ (object)
   var __UM__GAPI = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
     __UM__WINDOW,
     "gapi",
@@ -243,12 +245,17 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   );
   // now window.___jsl = {"I": 0, "hel": 10}
   // known properties:
-  //    "I" (int),
-  //    "hel" (int),
+  //    "ah" (object)
+  //      "::"
   //    "dpo",
-  //    "h" (string?),
   //    "H" (object of objects),
-  //    "PQ" (array of functions that accept callback)
+  //    "h" (string?),
+  //    "hee" (boolean?),
+  //    "hefn" (function) - accepts exception as arg,
+  //    "hel" (int),
+  //    "hel" (number) - gets decreased on exception,
+  //    "I" (int),
+  //    "nonce"
   //    "perf" (object)
   //      known props:
   //        "g" (object)
@@ -256,8 +263,8 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //          known props:
   //            "_p" (object)
   //        "r" (array (of arrays) by default, or function)
+  //    "PQ" (array of functions that accept callback)
   //    "us" (array)
-  //    "nonce"
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
   //
@@ -561,7 +568,10 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     "jsl",
     function (__UM__SOME_OBJ) {
       for (var __UM__OBJ_PROP in __UM__SOME_OBJ) {
-        if (Object.prototype.hasOwnProperty.call(__UM__SOME_OBJ, __UM__OBJ_PROP)) { // Since we create objects like Object.create(null); https://stackoverflow.com/a/12017703/4536543
+        if (
+          Object.prototype.hasOwnProperty.call(__UM__SOME_OBJ, __UM__OBJ_PROP)
+        ) {
+          // Since we create objects like Object.create(null); https://stackoverflow.com/a/12017703/4536543
           var __UM__VALUE = __UM__SOME_OBJ[__UM__OBJ_PROP];
           if (typeof __UM__VALUE === "object") {
             __UM__JSL[
@@ -1178,23 +1188,38 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //       f && Object.prototype.hasOwnProperty.call(c, e) && f(c[e], a, b);
   //     }
   // };
-  var __UM__CALL_JSL_SET_FUNCS = function(__UM__ARG_1, __UM__OBJ) {
+  var __UM__CALL_JSL_SET_FUNCS = function (__UM__ARG_1, __UM__OBJ) {
     // __UM__OBJ known props:
     //   _c (object)
     //     jsl (object?)
+    //   callback (function)
+    //   h - same as __UM__GET_JSH_VALUE_OR_THROW?
 
     var __UM__OBJ__c = __UM__OBJ && __UM__OBJ._c;
     if (__UM__OBJ__c) {
-      for (var __UM__INDEX = 0; __UM__INDEX < __UM__SOME_ARRAY.length; __UM__INDEX++) {
+      for (
+        var __UM__INDEX = 0;
+        __UM__INDEX < __UM__SOME_ARRAY.length;
+        __UM__INDEX++
+      ) {
         var __UM__R_0_STRING = __UM__SOME_ARRAY[__UM__INDEX][0]; // like "jsl"
         var __UM__R_1_FUNC = __UM__SOME_ARRAY[__UM__INDEX][1]; // function
-        if (__UM__R_1_FUNC && Object.prototype.hasOwnProperty.call(__UM__OBJ__c, __UM__R_0_STRING)) {
-          __UM__R_1_FUNC(__UM__OBJ__c[__UM__R_0_STRING], __UM__ARG_1, __UM__OBJ); // 2nd and 3rd args are ignored ???(0011)
+        if (
+          __UM__R_1_FUNC &&
+          Object.prototype.hasOwnProperty.call(__UM__OBJ__c, __UM__R_0_STRING)
+        ) {
+          __UM__R_1_FUNC(
+            __UM__OBJ__c[__UM__R_0_STRING],
+            __UM__ARG_1,
+            __UM__OBJ
+          ); // 2nd and 3rd args are ignored ???(0011)
         }
       }
     }
-  }
+  };
 
+  // TODO
+  //
   var xa = function (a, b, c) {
     wa(function () {
       var d = b === F() ? x(D, "_", y()) : y();
@@ -1202,6 +1227,32 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       a(d);
     }, c);
   };
+  var __UM__FUNC = function (__UM__FUNCTION, __UM__ARG_2, __UM__ARG_3) {
+    wa(function () {
+      // TODO: rename wa
+      var __UM__VAR;
+      if (__UM__GET_JSH_VALUE() === __UM__ARG_2) {
+        __UM__VAR = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+          __UM__GAPI,
+          "_",
+          __UM__OBJECT_CREATE()
+        );
+      } else {
+        __UM__VAR = __UM__OBJECT_CREATE();
+      }
+
+      __UM__VAR = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+        __UM__INIT_AND_GET_JSL_H_PROP(__UM__ARG_2),
+        "_",
+        __UM__VAR
+      );
+
+      __UM__FUNCTION(__UM__VAR);
+    }, __UM__ARG_3);
+  };
+
+  // TODO
+  //
   var za = function (a, b) {
     var c = b || {};
     "function" == typeof b && ((c = {}), (c.callback = b));
@@ -1230,6 +1281,71 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       for (; (b = a.shift()); ) ya(b.c, c, b.hint);
     } else ya(b || [], c, d);
   };
+  var __UM__FUNC3 = function (__UM__ARG_1, __UM__ARG_2) {
+    // __UM__ARG_1 = string?
+    // __UM__ARG_2 = object or function callback
+    var __UM__OBJ = __UM__ARG_2 || {};
+    if (typeof __UM__ARG_2 === "function") {
+      __UM__OBJ = {};
+      __UM__OBJ.callback = __UM__ARG_2;
+    }
+    __UM__CALL_JSL_SET_FUNCS(__UM__ARG_1, __UM__OBJ);
+    var __UM__ARRAY = __UM__ARG_1 ? __UM__ARG_1.split(":") : []; // --- (__UM__ARG_2)
+    var __UM__JSH = __UM__OBJ.h || __UM__GET_JSH_VALUE_OR_THROW();
+    var __UM__JSL_ah = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+      __UM__JSL,
+      "ah",
+      __UM__OBJECT_CREATE()
+    );
+    if (__UM__JSL_ah["::"] && __UM__ARRAY.length) {
+      var __UM__ARR = []; // --- (__UM__ARG_1)
+      var __UM__ARRAY_ELEM = null;
+      for (; (__UM__ARRAY_ELEM = __UM__ARRAY.shift()); ) {
+        // basically, __UM__ARRAY.forEach
+        var __UM__ARRAY_2 = __UM__ARRAY_ELEM.split(".");
+        var __UM__VAR =
+          __UM__JSL_ah[__UM__ARRAY_ELEM] ||
+          __UM__JSL_ah[(__UM__ARRAY_2[1] && "ns:" + __UM__ARRAY_2[0]) || ""] ||
+          __UM__JSH;
+        var __UM__ARR_LAST_ELEMENT =
+          (__UM__ARR.length && __UM__ARR[__UM__ARR.length - 1]) || null;
+        var __UM__ARR_LAST_ELEMENT_COPY = __UM__ARR_LAST_ELEMENT;
+        if (
+          __UM__ARR_LAST_ELEMENT &&
+          __UM__ARR_LAST_ELEMENT.hint == __UM__VAR
+        ) {
+        } else {
+          __UM__ARR_LAST_ELEMENT_COPY = {
+            hint: __UM__VAR,
+            c: [],
+          };
+          __UM__ARR.push(__UM__ARR_LAST_ELEMENT_COPY);
+        }
+        __UM__ARR_LAST_ELEMENT_COPY.c.push(__UM__ARRAY_ELEM);
+      }
+      var __UM__ARR_LENGTH = __UM__ARR.length;
+      if (__UM__ARR_LENGTH > 1) {
+        var __UM__CALLBACK = __UM__OBJ.callback;
+        if (__UM__CALLBACK) {
+          __UM__OBJ.callback = function () {
+            if (--z == 0) {
+              __UM__CALLBACK();
+            }
+          };
+        }
+      }
+      var __UM__ARRAY_ELEM_2; // --- (__UM__ARG_2)
+      for (; (__UM__ARRAY_ELEM_2 = __UM__ARR.shift()); ) {
+        // __UM__ARRAY_ELEM_2.forEach
+        ya(__UM__ARRAY_ELEM_2.c, __UM__OBJ, __UM__JSH);
+      }
+    } else {
+      ya(__UM__ARRAY || [], __UM__OBJ, __UM__JSH); // TODO: rename ya
+    }
+  };
+
+  // TODO
+  //
   var ya = function (a, b, c) {
     a = da(a) || [];
     var d = b.callback,
@@ -1306,28 +1422,61 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       } else r[t](ba);
     } else ea(p) && d && d();
   };
-  var wa = function (a, b) {
-    if (E.hee && 0 < E.hel)
-      try {
-        return a();
-      } catch (c) {
-        b && b(c),
-          E.hel--,
-          za("debug_error", function () {
-            try {
-              window.___jsl.hefn(c);
-            } catch (d) {
-              throw c;
-            }
-          });
-      }
-    else
-      try {
-        return a();
-      } catch (c) {
-        throw (b && b(c), c);
-      }
+  var __UM__FUNC4 = function (__UM__ARRAY, __UM__OBJ, __UM__JSH) {
+    // __UM__ARRAY - array of strings or objects {hint: jsh, c: []}
   };
+
+  // TODO
+  //
+  // var wa = function (a, b) {
+  //   if (E.hee && 0 < E.hel)
+  //     try {
+  //       return a();
+  //     } catch (c) {
+  //       b && b(c),
+  //         E.hel--,
+  //         za("debug_error", function () {
+  //           try {
+  //             window.___jsl.hefn(c);
+  //           } catch (d) {
+  //             throw c;
+  //           }
+  //         });
+  //     }
+  //   else
+  //     try {
+  //       return a();
+  //     } catch (c) {
+  //       throw (b && b(c), c);
+  //     }
+  // };
+  var __UM__FUNC2 = function (__UM__FUNC_1, __UM__FUNC_2) {
+    // __UM__FUNC_2 = console.error ???
+    if (__UM__JSL.hee && __UM__JSL.hel > 0) {
+      try {
+        return __UM__FUNC_1();
+      } catch (__UM__EXCEPTION) {
+        __UM__FUNC_2 && __UM__FUNC_2(__UM__EXCEPTION);
+        __UM__JSL.hel--;
+        za("debug_error", function () {
+          // TODO: rename za
+          try {
+            window.___jsl.hefn(__UM__EXCEPTION);
+          } catch (__UM__EXCEPTION_2) {
+            throw __UM__EXCEPTION;
+          }
+        });
+      }
+    } else {
+      try {
+        return __UM__FUNC_1();
+      } catch (__UM__EXCEPTION) {
+        __UM__FUNC_2 && __UM__FUNC_2(__UM__EXCEPTION);
+        throw __UM__EXCEPTION;
+      }
+    }
+  };
+
   D.load = function (a, b) {
     return wa(function () {
       return za(a, b);
