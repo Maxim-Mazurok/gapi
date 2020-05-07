@@ -257,14 +257,15 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //    "I" (int),
   //    "nonce"
   //    "perf" (object)
-  //      known props:
-  //        "g" (object)
-  //        "i" (object)
-  //          known props:
-  //            "_p" (object)
-  //        "r" (array (of arrays) by default, or function)
+  //      "g" (object)
+  //      "r" (array (of arrays) by default, or function)
+  //      "i" (object)
+  //        "_p" (object)
   //    "PQ" (array of functions that accept callback)
   //    "us" (array)
+  //    [jsh value] -- dynamic
+  //      "r" (array)
+  //      "L" (array)
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
   //
@@ -1193,6 +1194,10 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     //   _c (object)
     //     jsl (object?)
     //   callback (function)
+    //   config
+    //   timeout
+    //   ontimeout
+    //   onerror (function or ?)
     //   h - same as __UM__GET_JSH_VALUE_OR_THROW?
 
     var __UM__OBJ__c = __UM__OBJ && __UM__OBJ._c;
@@ -1220,13 +1225,13 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
 
   // TODO
   //
-  var xa = function (a, b, c) {
-    wa(function () {
-      var d = b === F() ? x(D, "_", y()) : y();
-      d = x(G(b), "_", d);
-      a(d);
-    }, c);
-  };
+  // var xa = function (a, b, c) {
+  //   wa(function () {
+  //     var d = b === F() ? x(D, "_", y()) : y();
+  //     d = x(G(b), "_", d);
+  //     a(d);
+  //   }, c);
+  // };
   var __UM__FUNC = function (__UM__FUNCTION, __UM__ARG_2, __UM__ARG_3) {
     wa(function () {
       // TODO: rename wa
@@ -1253,34 +1258,34 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
 
   // TODO
   //
-  var za = function (a, b) {
-    var c = b || {};
-    "function" == typeof b && ((c = {}), (c.callback = b));
-    va(a, c);
-    b = a ? a.split(":") : [];
-    var d = c.h || sa(),
-      e = x(E, "ah", y());
-    if (e["::"] && b.length) {
-      a = [];
-      for (var f = null; (f = b.shift()); ) {
-        var l = f.split(".");
-        l = e[f] || e[(l[1] && "ns:" + l[0]) || ""] || d;
-        var k = (a.length && a[a.length - 1]) || null,
-          w = k;
-        (k && k.hint == l) || ((w = { hint: l, c: [] }), a.push(w));
-        w.c.push(f);
-      }
-      var z = a.length;
-      if (1 < z) {
-        var A = c.callback;
-        A &&
-          (c.callback = function () {
-            0 == --z && A();
-          });
-      }
-      for (; (b = a.shift()); ) ya(b.c, c, b.hint);
-    } else ya(b || [], c, d);
-  };
+  // var za = function (a, b) {
+  //   var c = b || {};
+  //   "function" == typeof b && ((c = {}), (c.callback = b));
+  //   va(a, c);
+  //   b = a ? a.split(":") : [];
+  //   var d = c.h || sa(),
+  //     e = x(E, "ah", y());
+  //   if (e["::"] && b.length) {
+  //     a = [];
+  //     for (var f = null; (f = b.shift()); ) {
+  //       var l = f.split(".");
+  //       l = e[f] || e[(l[1] && "ns:" + l[0]) || ""] || d;
+  //       var k = (a.length && a[a.length - 1]) || null,
+  //         w = k;
+  //       (k && k.hint == l) || ((w = { hint: l, c: [] }), a.push(w));
+  //       w.c.push(f);
+  //     }
+  //     var z = a.length;
+  //     if (1 < z) {
+  //       var A = c.callback;
+  //       A &&
+  //         (c.callback = function () {
+  //           0 == --z && A();
+  //         });
+  //     }
+  //     for (; (b = a.shift()); ) ya(b.c, c, b.hint);
+  //   } else ya(b || [], c, d);
+  // };
   var __UM__FUNC3 = function (__UM__ARG_1, __UM__ARG_2) {
     // __UM__ARG_1 = string?
     // __UM__ARG_2 = object or function callback
@@ -1424,6 +1429,43 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   };
   var __UM__FUNC4 = function (__UM__ARRAY, __UM__OBJ, __UM__JSH) {
     // __UM__ARRAY - array of strings or objects {hint: jsh, c: []}
+    __UM__ARRAY = __UM__UNIQUE_ARRAY(__UM__ARRAY) || [];
+
+    // following looks like LoadConfig https://github.com/DefinitelyTyped/DefinitelyTyped/blob/master/types/gapi/index.d.ts#L46
+    var __UM__OBJ_CALLBACK = __UM__OBJ.callback;
+    var __UM__OBJ_CONFIG = __UM__OBJ.config;
+    var __UM__OBJ_TIMEOUT = __UM__OBJ.timeout;
+    var __UM__OBJ_ONTIMEOUT = __UM__OBJ.ontimeout;
+    var __UM__OBJ_ONERROR = __UM__OBJ.onerror;
+
+    var __UM__OBJ_ONERROR_OR_UNDEFINED = undefined;
+    if (typeof __UM__OBJ_ONERROR === "function") {
+      __UM__OBJ_ONERROR_OR_UNDEFINED = __UM__OBJ_ONERROR;
+    }
+
+    var __UM__NULL = null;
+    var __UM__FALSE = false;
+
+    if (
+      (__UM__OBJ_TIMEOUT && !__UM__OBJ_ONTIMEOUT) ||
+      (!__UM__OBJ_TIMEOUT && __UM__OBJ_ONTIMEOUT)
+    ) {
+      throw "Timeout requires both the timeout parameter and ontimeout parameter to be set";
+    }
+
+    var __UM__JSL_H_JSH_r_sorted = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE( // --- (__UM__OBJ_ONERROR)
+      __UM__INIT_AND_GET_JSL_H_PROP(__UM__JSH),
+      "r",
+      []
+    ).sort();
+
+    var __UM__JSL_H_JSH_L_sorted = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+      __UM__INIT_AND_GET_JSL_H_PROP(__UM__JSH),
+      "L",
+      []
+    ).sort();
+
+    // TODO:: I = [].concat(k),
   };
 
   // TODO
