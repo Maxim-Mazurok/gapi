@@ -221,6 +221,8 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // D = x(q, "gapi", {});
   // known gapi props:
   //   _ (object)
+  //   config (object)
+  //     update (function)
   var __UM__GAPI = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
     __UM__WINDOW,
     "gapi",
@@ -247,14 +249,16 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   // known properties:
   //    "ah" (object)
   //      "::"
-  //    "dpo",
-  //    "H" (object of objects),
-  //    "h" (string?),
-  //    "hee" (boolean?),
-  //    "hefn" (function) - accepts exception as arg,
-  //    "hel" (int),
-  //    "hel" (number) - gets decreased on exception,
-  //    "I" (int),
+  //    "CP" (array)
+  //    "cu" (array) - may contain __UM__OBJ_CONFIG
+  //    "dpo"
+  //    "H" (object of objects)
+  //    "h" (string?)
+  //    "hee" (boolean?)
+  //    "hefn" (function) - accepts exception as arg
+  //    "hel" (int)
+  //    "hel" (number) - gets decreased on exception
+  //    "I" (int)
   //    "nonce"
   //    "perf" (object)
   //      "g" (object)
@@ -1232,11 +1236,10 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //     a(d);
   //   }, c);
   // };
-  var __UM__FUNC = function (__UM__FUNCTION, __UM__ARG_2, __UM__ARG_3) {
-    wa(function () {
-      // TODO: rename wa
+  var __UM__FUNC = function (__UM__FUNCTION, __UM__JSH, __UM__OBJ_ONERROR_OR_UNDEFINED) {
+    __UM__FUNC2(function () {
       var __UM__VAR;
-      if (__UM__GET_JSH_VALUE() === __UM__ARG_2) {
+      if (__UM__GET_JSH_VALUE() === __UM__JSH) {
         __UM__VAR = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
           __UM__GAPI,
           "_",
@@ -1247,13 +1250,13 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       }
 
       __UM__VAR = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
-        __UM__INIT_AND_GET_JSL_H_PROP(__UM__ARG_2),
+        __UM__INIT_AND_GET_JSL_H_PROP(__UM__JSH),
         "_",
         __UM__VAR
       );
 
       __UM__FUNCTION(__UM__VAR);
-    }, __UM__ARG_3);
+    }, __UM__OBJ_ONERROR_OR_UNDEFINED);
   };
 
   // TODO
@@ -1383,6 +1386,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
         }
         return 1;
       };
+// TODO --------
     0 < f &&
       (z = q.setTimeout(function () {
         A = !0;
@@ -1437,14 +1441,14 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     var __UM__OBJ_TIMEOUT = __UM__OBJ.timeout;
     var __UM__OBJ_ONTIMEOUT = __UM__OBJ.ontimeout;
     var __UM__OBJ_ONERROR = __UM__OBJ.onerror;
-
     var __UM__OBJ_ONERROR_OR_UNDEFINED = undefined;
+
     if (typeof __UM__OBJ_ONERROR === "function") {
       __UM__OBJ_ONERROR_OR_UNDEFINED = __UM__OBJ_ONERROR;
     }
 
-    var __UM__NULL = null;
-    var __UM__FALSE = false;
+    var __UM__TIMEOUT = null;
+    var __UM__BOOLEAN = false;
 
     if (
       (__UM__OBJ_TIMEOUT && !__UM__OBJ_ONTIMEOUT) ||
@@ -1465,7 +1469,38 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       []
     ).sort();
 
-    // TODO:: I = [].concat(k),
+    var __UM__JSL_H_JSH_L_sorted_COPY = [].concat(__UM__JSL_H_JSH_L_sorted);
+
+    var __UM__FUNC5 = function(__UM__ARG_1, __UM__FUNCTION) {
+      if (__UM__BOOLEAN) {
+        return 0;
+      }
+      __UM__WINDOW.clearTimeout(__UM__TIMEOUT);
+      __UM__JSL_H_JSH_L_sorted_COPY.push.apply(__UM__JSL_H_JSH_L_sorted_COPY, p); // TODO: rename p // merges two arrays
+      var __UM__UPDATE = ((__UM__GAPI || {}).config || {}).update; // widnow.gapi.config.update
+      if (__UM__UPDATE) {
+        __UM__UPDATE(__UM__OBJ_CONFIG)
+      } else if (__UM__OBJ_CONFIG) {
+        __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+          __UM__JSL,
+          "cu",
+          []
+        ).push(__UM__OBJ_CONFIG)
+      }
+
+      if (__UM__FUNCTION) {
+        __UM__RECORD_PERF("me0", __UM__ARG_1, __UM__JSL_H_JSH_L_sorted_COPY);
+        try {
+          __UM__FUNC(__UM__FUNCTION, __UM__JSH, __UM__OBJ_ONERROR_OR_UNDEFINED);
+        } finally {
+          __UM__RECORD_PERF("me1", __UM__ARG_1, __UM__JSL_H_JSH_L_sorted_COPY);
+        }
+      }
+
+      return 1;
+    }
+
+    // TODO
   };
 
   // TODO
@@ -1493,7 +1528,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //     }
   // };
   var __UM__FUNC2 = function (__UM__FUNC_1, __UM__FUNC_2) {
-    // __UM__FUNC_2 = console.error ???
+    // __UM__FUNC_2 = __UM__OBJ_ONERROR_OR_UNDEFINED
     if (__UM__JSL.hee && __UM__JSL.hel > 0) {
       try {
         return __UM__FUNC_1();
