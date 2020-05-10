@@ -267,8 +267,10 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //        "_p" (object)
   //    "PQ" (array of functions that accept callback)
   //    "us" (array)
-  //    [jsh value] -- dynamic
-  //      "r" (array)
+  //    [jsh value] -- dynamic, may contain ";"
+  //      "r" (array of strings or objects)
+  //        hint: jsh
+  //        c (array)
   //      "L" (array)
 
   // get JSH value either from window.___jsl.h or from url #jsh=value or ?jsh=value (supports #some=val&jsh=test or ?some=val&jsh=value)
@@ -465,6 +467,9 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     __UM__ARRAY_1,
     __UM__ARRAY_2
   ) {
+    // __UM__JSL_PERF_i__p_shortArr1And3Value_PROP_NAME known values:
+    // "me0", "me1", "ml1"
+
     if (__UM__ARRAY_1 && __UM__ARRAY_1.length > 0) {
       // arr1 = stringify(arr1)
       __UM__ARRAY_1 = __UM__ARRAY_TO_STRING(__UM__ARRAY_1);
@@ -623,6 +628,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   var __UM__AZ_09_PUNCTUATION_WITHOUT_BANG_REGEXP = /^[a-zA-Z0-9,._-]+$/;
 
   // generates some "load url", checks it and returns it or throws error
+  // for example, https://apis.google.com/_/scs/apps-static/_/js/k=oz.gapi.en.jw7XZHvcak8.O/m=auth2,client/rt=j/sv=1/d=1/ed=1/am=wQE/rs=AGLTcCOXtLG11kt9d673FzpjO_GiLUGIQA/cb=gapi.loaded_0
   //
   // var pa = function (a, b, c, d) {
   //   var e = a.split(";"),
@@ -642,12 +648,12 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //   return k;
   // };
   var __UM__GENERATE_LOAD_URL = function (
-    __UM__ARG_1, // string
-    __UM__ARG_2,
-    __UM__ARG_3,
-    __UM__ARG_4
+    __UM__JSH, // string
+    __UM__ARG_2, // array
+    __UM__GAPI_LOADED_CALLBACK_NAME, // string, such as "gapi.loaded_0"
+    __UM__ARG_4 // array, window.___jsl.h.jsh.r
   ) {
-    var __UM__ARG_1_AS_ARRAY = __UM__ARG_1.split(";");
+    var __UM__ARG_1_AS_ARRAY = __UM__JSH.split(";");
     var __UM__ARG_1_AS_ARRAY_FIRST = __UM__ARG_1_AS_ARRAY.shift();
     var __UM__GENERATE_LOAD_URL = // hint processor
       __UM__GENERATE_LOAD_URL_OBJECT[__UM__ARG_1_AS_ARRAY_FIRST];
@@ -656,7 +662,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       __UM__LOAD_URL = __UM__GENERATE_LOAD_URL(
         __UM__ARG_1_AS_ARRAY,
         __UM__ARG_2,
-        __UM__ARG_3,
+        __UM__GAPI_LOADED_CALLBACK_NAME,
         __UM__ARG_4
       );
     } else {
@@ -683,7 +689,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     ) {
       // all good
     } else {
-      __UM__THROW_BAD_HINT_ERROR("failed sanity: " + __UM__ARG_1);
+      __UM__THROW_BAD_HINT_ERROR("failed sanity: " + __UM__JSH);
     }
     return __UM__LOAD_URL;
   };
@@ -1236,7 +1242,11 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //     a(d);
   //   }, c);
   // };
-  var __UM__FUNC = function (__UM__FUNCTION, __UM__JSH, __UM__OBJ_ONERROR_OR_UNDEFINED) {
+  var __UM__FUNC = function (
+    __UM__FUNCTION,
+    __UM__JSH,
+    __UM__OBJ_ONERROR_OR_UNDEFINED
+  ) {
     __UM__FUNC2(function () {
       var __UM__VAR;
       if (__UM__GET_JSH_VALUE() === __UM__JSH) {
@@ -1386,7 +1396,6 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
         }
         return 1;
       };
-// TODO --------
     0 < f &&
       (z = q.setTimeout(function () {
         A = !0;
@@ -1425,6 +1434,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
           D[Q] = null;
         };
         a = pa(c, p, "gapi." + Q, k);
+        // TODO --------
         k.push.apply(k, p);
         N("ml0", p, I);
         b.sync || q.___gapisync ? ua(a) : ta(a);
@@ -1448,7 +1458,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     }
 
     var __UM__TIMEOUT = null;
-    var __UM__BOOLEAN = false;
+    var __UM__TIMEOUT_TRIGGERED = false;
 
     if (
       (__UM__OBJ_TIMEOUT && !__UM__OBJ_ONTIMEOUT) ||
@@ -1457,7 +1467,8 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       throw "Timeout requires both the timeout parameter and ontimeout parameter to be set";
     }
 
-    var __UM__JSL_H_JSH_r_sorted = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE( // --- (__UM__OBJ_ONERROR)
+    var __UM__JSL_H_JSH_r_sorted = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+      // --- (__UM__OBJ_ONERROR)
       __UM__INIT_AND_GET_JSL_H_PROP(__UM__JSH),
       "r",
       []
@@ -1471,35 +1482,129 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
 
     var __UM__JSL_H_JSH_L_sorted_COPY = [].concat(__UM__JSL_H_JSH_L_sorted);
 
-    var __UM__FUNC5 = function(__UM__ARG_1, __UM__FUNCTION) {
-      if (__UM__BOOLEAN) {
+    var __UM__FUNC5 = function (__UM__ARG_ARRAY, __UM__FUNCTION) {
+      if (__UM__TIMEOUT_TRIGGERED) {
         return 0;
       }
       __UM__WINDOW.clearTimeout(__UM__TIMEOUT);
-      __UM__JSL_H_JSH_L_sorted_COPY.push.apply(__UM__JSL_H_JSH_L_sorted_COPY, p); // TODO: rename p // merges two arrays
-      var __UM__UPDATE = ((__UM__GAPI || {}).config || {}).update; // widnow.gapi.config.update
+      __UM__JSL_H_JSH_L_sorted_COPY.push.apply(
+        __UM__JSL_H_JSH_L_sorted_COPY,
+        p
+      ); // TODO: rename p // merges two arrays
+      var __UM__UPDATE = ((__UM__GAPI || {}).config || {}).update; // window.gapi.config.update
       if (__UM__UPDATE) {
-        __UM__UPDATE(__UM__OBJ_CONFIG)
+        __UM__UPDATE(__UM__OBJ_CONFIG);
       } else if (__UM__OBJ_CONFIG) {
         __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
           __UM__JSL,
           "cu",
           []
-        ).push(__UM__OBJ_CONFIG)
+        ).push(__UM__OBJ_CONFIG);
       }
 
       if (__UM__FUNCTION) {
-        __UM__RECORD_PERF("me0", __UM__ARG_1, __UM__JSL_H_JSH_L_sorted_COPY);
+        __UM__RECORD_PERF(
+          "me0",
+          __UM__ARG_ARRAY,
+          __UM__JSL_H_JSH_L_sorted_COPY
+        );
         try {
           __UM__FUNC(__UM__FUNCTION, __UM__JSH, __UM__OBJ_ONERROR_OR_UNDEFINED);
         } finally {
-          __UM__RECORD_PERF("me1", __UM__ARG_1, __UM__JSL_H_JSH_L_sorted_COPY);
+          __UM__RECORD_PERF(
+            "me1",
+            __UM__ARG_ARRAY,
+            __UM__JSL_H_JSH_L_sorted_COPY
+          );
         }
       }
 
       return 1;
+    };
+
+    if (__UM__OBJ_TIMEOUT > 0) {
+      __UM__TIMEOUT = __UM__WINDOW.setTimeout(function () {
+        __UM__TIMEOUT_TRIGGERED = true;
+        __UM__OBJ_ONTIMEOUT();
+      }, __UM__OBJ_TIMEOUT);
     }
 
+    var __UM__ARRAY_MINUS___UM__JSL_H_JSH_L_sorted = __UM__REMOVE_COMMON_ELEMENTS_FROM_ARRAY(
+      __UM__ARRAY,
+      __UM__JSL_H_JSH_L_sorted
+    );
+
+    if (__UM__ARRAY_MINUS___UM__JSL_H_JSH_L_sorted.length) {
+      var __UM__ARRAY_MINUS___UM__JSL_H_JSH_r_sorted = __UM__REMOVE_COMMON_ELEMENTS_FROM_ARRAY(
+        // --- (__UM__ARRAY_MINUS___UM__JSL_H_JSH_L_sorted)
+        __UM__ARRAY,
+        __UM__JSL_H_JSH_r_sorted
+      );
+
+      var __UM__JSL_CP = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+        __UM__JSL,
+        "CP",
+        []
+      );
+      var __UM__JSL_CP_length = __UM__JSL_CP.length;
+
+      __UM__JSL_CP[__UM__JSL_CP_length] = function (__UM__ARG_FUNCTION_OUTER) {
+        // basically, push
+        if (!__UM__ARG_FUNCTION_OUTER) return 0;
+        __UM__RECORD_PERF(
+          "ml1",
+          __UM__ARRAY_MINUS___UM__JSL_H_JSH_r_sorted,
+          __UM__JSL_H_JSH_L_sorted_COPY
+        );
+
+        var __UM__FUNC6 = function (__UM__ARG_FUNCTION_INNER) {
+          // __UM__ARG_FUNCTION_INNER is callback?
+          __UM__JSL_CP[__UM__JSL_CP_length] = null;
+          if (
+            __UM__FUNC5(
+              __UM__ARRAY_MINUS___UM__JSL_H_JSH_r_sorted,
+              __UM__ARG_FUNCTION_OUTER
+            )
+          ) {
+            __UM__ASYNC_QUEUE(function () {
+              __UM__OBJ_CALLBACK && __UM__OBJ_CALLBACK();
+              __UM__ARG_FUNCTION_INNER();
+            });
+          }
+        };
+
+        var __UM__CALL_THE_LAST_ELEM_OF___UM__JSL_CP = function () {
+          // calls function assigned at `__UM__JSL_CP[__UM__JSL_CP_length] = function (__UM__ARG_FUNCTION_OUTER) {...}`
+          var __UM_JSL_CP_FUNC = __UM__JSL_CP[__UM__JSL_CP_length + 1];
+          __UM_JSL_CP_FUNC && __UM_JSL_CP_FUNC();
+        };
+
+        if (__UM__JSL_CP_length > 0 && __UM__JSL_CP[__UM__JSL_CP_length - 1]) {
+          __UM__JSL_CP[__UM__JSL_CP_length] = function () {
+            __UM__FUNC6(__UM__CALL_THE_LAST_ELEM_OF___UM__JSL_CP);
+          };
+        } else {
+          __UM__FUNC6(__UM__CALL_THE_LAST_ELEM_OF___UM__JSL_CP);
+        }
+      };
+
+      if (__UM__ARRAY_MINUS___UM__JSL_H_JSH_r_sorted.length) {
+        var __UM__LOADED_CALLBACK_NAME = "loaded_" + __UM__JSL.I++;
+        __UM__GAPI[__UM__LOADED_CALLBACK_NAME] = function (
+          __UM__LOADED_CALLBACK
+        ) {
+          __UM__JSL_CP[__UM__JSL_CP_length](__UM__LOADED_CALLBACK);
+          __UM__GAPI[__UM__LOADED_CALLBACK_NAME] = null;
+        };
+        var __UM__LOAD_URL = __UM__GENERATE_LOAD_URL(
+          // ---(__UM__ARRAY)
+          __UM__JSH,
+          __UM__ARRAY_MINUS___UM__JSL_H_JSH_r_sorted,
+          "gapi." + __UM__LOADED_CALLBACK_NAME,
+          __UM__JSL_H_JSH_r_sorted
+        );
+      }
+    }
     // TODO
   };
 
