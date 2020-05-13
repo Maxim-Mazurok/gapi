@@ -154,6 +154,9 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //
   // var q = window,
   var __UM__WINDOW = window;
+  // known props:
+  //   ___gapisync (boolean)
+
   // v = document,
   var __UM__DOCUMENT = document;
   // aa = q.location,
@@ -468,7 +471,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     __UM__ARRAY_2
   ) {
     // __UM__JSL_PERF_i__p_shortArr1And3Value_PROP_NAME known values:
-    // "me0", "me1", "ml1"
+    // "me0", "me1", "ml0", "ml1"
 
     if (__UM__ARRAY_1 && __UM__ARRAY_1.length > 0) {
       // arr1 = stringify(arr1)
@@ -1124,6 +1127,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
 
   // if document is not ready - document.write("<script src='' nonce=''>")
   // otherwise - run __UM__APPEND_SCRIPT_TO_DOC
+  // used to load script synchronously
   //
   // var ua = function (a) {
   //   if ("loading" != v.readyState) ta(a);
@@ -1135,9 +1139,9 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //     v.write(a);
   //   }
   // };
-  var __UM__ADD_SCRIPT_TO_DOC = function (__UM__SCRIPT_URL) {
+  var __UM__ADD_SCRIPT_TO_DOC_SYNC = function (__UM__SCRIPT_URL) {
     if (__UM__DOCUMENT.readyState !== "loading") {
-      __UM__APPEND_SCRIPT_TO_DOC(__UM__SCRIPT_URL);
+      __UM__APPEND_SCRIPT_TO_DOC_ASYNC(__UM__SCRIPT_URL);
     } else {
       var __UM__NONCE = __UM__GET_JSL_NONCE();
       var __UM__NONCE_ATTR = "";
@@ -1152,6 +1156,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   };
 
   // create <script src="" nonce="" async> and append to document head/body/html
+  // used to load script asynchronously
   //
   // var ta = function (a) {
   //   var b = v.createElement(W);
@@ -1163,7 +1168,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //     ? a.parentNode.insertBefore(b, a)
   //     : (v.head || v.body || v.documentElement).appendChild(b);
   // };
-  var __UM__APPEND_SCRIPT_TO_DOC = function (__UM__SCRIPT_URL) {
+  var __UM__APPEND_SCRIPT_TO_DOC_ASYNC = function (__UM__SCRIPT_URL) {
     var __UM__SCRIPT_ELEMENT = __UM__DOCUMENT.createElement(__UM__SCRIPT);
     __UM__SCRIPT_ELEMENT.setAttribute("src", __UM__SCRIPT_URL);
     var __UM__NONCE = __UM__GET_JSL_NONCE(); // --- (__UM__SCRIPT_URL)
@@ -1362,85 +1367,84 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     }
   };
 
-  // TODO
+  // does a lot of things :/
   //
-  var ya = function (a, b, c) {
-    a = da(a) || [];
-    var d = b.callback,
-      e = b.config,
-      f = b.timeout,
-      l = b.ontimeout,
-      k = b.onerror,
-      w = void 0;
-    "function" == typeof k && (w = k);
-    var z = null,
-      A = !1;
-    if ((f && !l) || (!f && l))
-      throw "Timeout requires both the timeout parameter and ontimeout parameter to be set";
-    k = x(G(c), "r", []).sort();
-    var P = x(G(c), "L", []).sort(),
-      I = [].concat(k),
-      ea = function (u, B) {
-        if (A) return 0;
-        q.clearTimeout(z);
-        P.push.apply(P, p);
-        var C = ((D || {}).config || {}).update;
-        C ? C(e) : e && x(E, "cu", []).push(e);
-        if (B) {
-          N("me0", u, I);
-          try {
-            xa(B, c, w);
-          } finally {
-            N("me1", u, I);
-          }
-        }
-        return 1;
-      };
-    0 < f &&
-      (z = q.setTimeout(function () {
-        A = !0;
-        l();
-      }, f));
-    var p = Y(a, P);
-    if (p.length) {
-      p = Y(a, k);
-      var r = x(E, "CP", []),
-        t = r.length;
-      r[t] = function (u) {
-        if (!u) return 0;
-        N("ml1", p, I);
-        var B = function (J) {
-            r[t] = null;
-            ea(p, u) &&
-              fa(function () {
-                d && d();
-                J();
-              });
-          },
-          C = function () {
-            var J = r[t + 1];
-            J && J();
-          };
-        0 < t && r[t - 1]
-          ? (r[t] = function () {
-              B(C);
-            })
-          : B(C);
-      };
-      if (p.length) {
-        var Q = "loaded_" + E.I++;
-        D[Q] = function (u) {
-          r[t](u);
-          D[Q] = null;
-        };
-        a = pa(c, p, "gapi." + Q, k);
-        // TODO --------
-        k.push.apply(k, p);
-        N("ml0", p, I);
-        b.sync || q.___gapisync ? ua(a) : ta(a);
-      } else r[t](ba);
-    } else ea(p) && d && d();
-  };
+  // var ya = function (a, b, c) {
+  //   a = da(a) || [];
+  //   var d = b.callback,
+  //     e = b.config,
+  //     f = b.timeout,
+  //     l = b.ontimeout,
+  //     k = b.onerror,
+  //     w = void 0;
+  //   "function" == typeof k && (w = k);
+  //   var z = null,
+  //     A = !1;
+  //   if ((f && !l) || (!f && l))
+  //     throw "Timeout requires both the timeout parameter and ontimeout parameter to be set";
+  //   k = x(G(c), "r", []).sort();
+  //   var P = x(G(c), "L", []).sort(),
+  //     I = [].concat(k),
+  //     ea = function (u, B) {
+  //       if (A) return 0;
+  //       q.clearTimeout(z);
+  //       P.push.apply(P, p);
+  //       var C = ((D || {}).config || {}).update;
+  //       C ? C(e) : e && x(E, "cu", []).push(e);
+  //       if (B) {
+  //         N("me0", u, I);
+  //         try {
+  //           xa(B, c, w);
+  //         } finally {
+  //           N("me1", u, I);
+  //         }
+  //       }
+  //       return 1;
+  //     };
+  //   0 < f &&
+  //     (z = q.setTimeout(function () {
+  //       A = !0;
+  //       l();
+  //     }, f));
+  //   var p = Y(a, P);
+  //   if (p.length) {
+  //     p = Y(a, k);
+  //     var r = x(E, "CP", []),
+  //       t = r.length;
+  //     r[t] = function (u) {
+  //       if (!u) return 0;
+  //       N("ml1", p, I);
+  //       var B = function (J) {
+  //           r[t] = null;
+  //           ea(p, u) &&
+  //             fa(function () {
+  //               d && d();
+  //               J();
+  //             });
+  //         },
+  //         C = function () {
+  //           var J = r[t + 1];
+  //           J && J();
+  //         };
+  //       0 < t && r[t - 1]
+  //         ? (r[t] = function () {
+  //             B(C);
+  //           })
+  //         : B(C);
+  //     };
+  //     if (p.length) {
+  //       var Q = "loaded_" + E.I++;
+  //       D[Q] = function (u) {
+  //         r[t](u);
+  //         D[Q] = null;
+  //       };
+  //       a = pa(c, p, "gapi." + Q, k);
+  //       k.push.apply(k, p);
+  //       N("ml0", p, I);
+  //       b.sync || q.___gapisync ? ua(a) : ta(a);
+  //     } else r[t](ba);
+  //   } else ea(p) && d && d();
+  // };
   var __UM__FUNC4 = function (__UM__ARRAY, __UM__OBJ, __UM__JSH) {
     // __UM__ARRAY - array of strings or objects {hint: jsh, c: []}
     __UM__ARRAY = __UM__UNIQUE_ARRAY(__UM__ARRAY) || [];
@@ -1603,9 +1607,28 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
           "gapi." + __UM__LOADED_CALLBACK_NAME,
           __UM__JSL_H_JSH_r_sorted
         );
+        __UM__JSL_H_JSH_r_sorted.push.apply(
+          __UM__JSL_H_JSH_r_sorted,
+          __UM__ARRAY_MINUS___UM__JSL_H_JSH_r_sorted
+        );
+        __UM__RECORD_PERF(
+          "ml0",
+          __UM__ARRAY_MINUS___UM__JSL_H_JSH_r_sorted,
+          __UM__JSL_H_JSH_L_sorted_COPY
+        );
+        if (__UM__OBJ.sync || __UM__WINDOW.___gapisync) {
+          __UM__ADD_SCRIPT_TO_DOC_SYNC(__UM__LOAD_URL);
+        } else {
+          __UM__APPEND_SCRIPT_TO_DOC_ASYNC(__UM__LOAD_URL);
+        }
+      } else {
+        __UM__JSL_CP[__UM__JSL_CP_length](__UM__EMPTY_FUNCTION);
+      }
+    } else {
+      if (__UM__FUNC5(__UM__ARRAY_MINUS___UM__JSL_H_JSH_r_sorted)) {
+        __UM__OBJ_CALLBACK && __UM__OBJ_CALLBACK();
       }
     }
-    // TODO
   };
 
   // TODO
