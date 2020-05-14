@@ -1304,16 +1304,16 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //     for (; (b = a.shift()); ) ya(b.c, c, b.hint);
   //   } else ya(b || [], c, d);
   // };
-  var __UM__FUNC3 = function (__UM__ARG_1, __UM__ARG_2) {
-    // __UM__ARG_1 = string?
-    // __UM__ARG_2 = object or function callback
-    var __UM__OBJ = __UM__ARG_2 || {};
-    if (typeof __UM__ARG_2 === "function") {
+  var __UM__FUNC3 = function (__UM__LIBRARIES, __UM__CALLBACK_OR_CONFIG) {
+    // __UM__LIBRARIES = string, 	A colon (:) separated list of gapi libraries. Ex: "client:auth2". (https://github.com/google/google-api-javascript-client/blob/master/docs/reference.md#----gapiloadlibraries-callbackorconfig------)
+    // __UM__CALLBACK_OR_CONFIG = object or function callback
+    var __UM__OBJ = __UM__CALLBACK_OR_CONFIG || {};
+    if (typeof __UM__CALLBACK_OR_CONFIG === "function") {
       __UM__OBJ = {};
-      __UM__OBJ.callback = __UM__ARG_2;
+      __UM__OBJ.callback = __UM__CALLBACK_OR_CONFIG;
     }
-    __UM__CALL_JSL_SET_FUNCS(__UM__ARG_1, __UM__OBJ);
-    var __UM__ARRAY = __UM__ARG_1 ? __UM__ARG_1.split(":") : []; // --- (__UM__ARG_2)
+    __UM__CALL_JSL_SET_FUNCS(__UM__LIBRARIES, __UM__OBJ);
+    var __UM__ARRAY = __UM__LIBRARIES ? __UM__LIBRARIES.split(":") : []; // --- (__UM__ARG_2)
     var __UM__JSH = __UM__OBJ.h || __UM__GET_JSH_VALUE_OR_THROW();
     var __UM__JSL_ah = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
       __UM__JSL,
@@ -1682,11 +1682,20 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
     }
   };
 
-  D.load = function (a, b) {
-    return wa(function () {
-      return za(a, b);
+  // gapi.load(libraries, callbackOrConfig)
+  // https://github.com/google/google-api-javascript-client/blob/master/docs/reference.md#----gapiloadlibraries-callbackorconfig------
+  //
+  // D.load = function (a, b) {
+  //   return wa(function () {
+  //     return za(a, b);
+  //   });
+  // };
+  __UM__GAPI.load = function (__UM__LIBRARIES, __UM__CALLBACK_OR_CONFIG) {
+    return __UM__FUNC2(function () {
+      return __UM__FUNC3(__UM__LIBRARIES, __UM__CALLBACK_OR_CONFIG);
     });
   };
+
   K.bs0 = window.gapi._bs || new Date().getTime();
   L("bs0");
   K.bs1 = new Date().getTime();
