@@ -7,6 +7,11 @@ This project aims to make minified GAPI (https://apis.google.com/js/api.js) sour
 1. To create accurate type definitions for TypeScript (examples: [@types/gapi.client](https://www.npmjs.com/package/@types/gapi.client), [@types/gapi](https://www.npmjs.com/package/@types/gapi))
 1. To create better optimized clone that will be distributed via NPM
 
+### Current findings:
+- `api.js` only defines one public method: `gapi.load`
+- `gapi.load` accepts `libraries` and `callbackOrConfig` arguments, as [documented](https://github.com/google/google-api-javascript-client/blob/master/docs/reference.md#----gapiloadlibraries-callbackorconfig------), but `callbackOrConfig` also has [undocumented](https://github.com/google/google-api-javascript-client/issues/629) property: `config`
+- `gapi.client` methods are defined in the `client` library that is being loaded by `gapi.load`
+
 ### Current approach:
 
 1. Beautify code
