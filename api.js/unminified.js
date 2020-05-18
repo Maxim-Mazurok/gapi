@@ -256,6 +256,7 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //    "cu" (array) - may contain __UM__OBJ_CONFIG
   //    "dpo"
   //    "H" (object of objects)
+  //      "_" (object)
   //    "h" (string?)
   //    "hee" (boolean?)
   //    "hefn" (function) - accepts exception as arg
@@ -1248,29 +1249,29 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
   //   }, c);
   // };
   var __UM__FUNC = function (
-    __UM__FUNCTION,
+    __UM__GAPI_LOADED_CALLBACK_FUNC,
     __UM__JSH,
     __UM__OBJ_ONERROR_OR_UNDEFINED
   ) {
     __UM__FUNC2(function () {
-      var __UM__VAR;
+      var __UM__GAPI_LOADED_CALLBACK_ARG; // window.gapi._ or window.__jsl.H._, passed to gapi.loaded_[0-9]+ func
       if (__UM__GET_JSH_VALUE() === __UM__JSH) {
-        __UM__VAR = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+        __UM__GAPI_LOADED_CALLBACK_ARG = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
           __UM__GAPI,
           "_",
           __UM__OBJECT_CREATE()
         );
       } else {
-        __UM__VAR = __UM__OBJECT_CREATE();
+        __UM__GAPI_LOADED_CALLBACK_ARG = __UM__OBJECT_CREATE();
       }
 
-      __UM__VAR = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
+      __UM__GAPI_LOADED_CALLBACK_ARG = __UM__SET_OBJECT_PROP_WITH_DEFAULT_AND_RETURN_PROP_VALUE(
         __UM__INIT_AND_GET_JSL_H_PROP(__UM__JSH),
         "_",
-        __UM__VAR
+        __UM__GAPI_LOADED_CALLBACK_ARG
       );
 
-      __UM__FUNCTION(__UM__VAR);
+      __UM__GAPI_LOADED_CALLBACK_FUNC(__UM__GAPI_LOADED_CALLBACK_ARG);
     }, __UM__OBJ_ONERROR_OR_UNDEFINED);
   };
 
@@ -1360,10 +1361,10 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
       var __UM__ARRAY_ELEM_2; // --- (__UM__ARG_2)
       for (; (__UM__ARRAY_ELEM_2 = __UM__ARR.shift()); ) {
         // __UM__ARRAY_ELEM_2.forEach
-        ya(__UM__ARRAY_ELEM_2.c, __UM__OBJ, __UM__JSH);
+        __UM__FUNC4(__UM__ARRAY_ELEM_2.c, __UM__OBJ, __UM__JSH);
       }
     } else {
-      ya(__UM__ARRAY || [], __UM__OBJ, __UM__JSH); // TODO: rename ya
+      __UM__FUNC4(__UM__ARRAY || [], __UM__OBJ, __UM__JSH);
     }
   };
 
@@ -1486,7 +1487,10 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
 
     var __UM__JSL_H_JSH_L_sorted_COPY = [].concat(__UM__JSL_H_JSH_L_sorted);
 
-    var __UM__FUNC5 = function (__UM__ARG_ARRAY, __UM__FUNCTION) {
+    var __UM__FUNC5 = function (
+      __UM__ARG_ARRAY,
+      __UM__GAPI_LOADED_CALLBACK_FUNC
+    ) {
       if (__UM__TIMEOUT_TRIGGERED) {
         return 0;
       }
@@ -1506,14 +1510,18 @@ gapi.__UM__SOME_UNIX_TIME_NUMBER = new Date().getTime();
         ).push(__UM__OBJ_CONFIG);
       }
 
-      if (__UM__FUNCTION) {
+      if (__UM__GAPI_LOADED_CALLBACK_FUNC) {
         __UM__RECORD_PERF(
           "me0",
           __UM__ARG_ARRAY,
           __UM__JSL_H_JSH_L_sorted_COPY
         );
         try {
-          __UM__FUNC(__UM__FUNCTION, __UM__JSH, __UM__OBJ_ONERROR_OR_UNDEFINED);
+          __UM__FUNC(
+            __UM__GAPI_LOADED_CALLBACK_FUNC,
+            __UM__JSH,
+            __UM__OBJ_ONERROR_OR_UNDEFINED
+          );
         } finally {
           __UM__RECORD_PERF(
             "me1",
