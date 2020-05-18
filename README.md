@@ -26,3 +26,7 @@ This project aims to make minified GAPI (https://apis.google.com/js/api.js) sour
 1. Try to rewrite this script and make sure that it works
 1. Probably add unit tests to make sure that we have a good understanding of how all parts work
 1. Try adding TypeScript, it may make rewriting easier since we don't have to keep in mind what that variable does/contains
+
+### ToDo:
+
+- [ ] Build [gjstest](https://github.com/google/gjstest/issues/20) for Windows and use it to run tests
