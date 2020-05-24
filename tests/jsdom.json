@@ -1,0 +1,996 @@
+{
+  "_": {
+    "aa": [
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null
+    ],
+    "Za": {},
+    "$a": {},
+    "q": "__UM__WINDOW",
+    "ab": "closure_uid_362732138",
+    "Gb": "Mozilla/5.0 (win32) AppleWebKit/537.36 (KHTML, like Gecko) jsdom/16.2.2",
+    "Yb": {
+      "KO": "",
+      "pS": {}
+    },
+    "dc": {},
+    "Zb": {},
+    "rc": {},
+    "Ac": {
+      "LD": "",
+      "TR": {},
+      "uI": 0
+    },
+    "Bc": {
+      "LD": "<br>",
+      "uI": 0
+    },
+    "Ec": 953339011,
+    "Kc": false,
+    "Lc": false,
+    "Mc": false,
+    "Nc": false,
+    "Oc": false,
+    "Pc": true,
+    "Qc": false,
+    "Rc": false,
+    "Sc": false,
+    "Tc": false,
+    "Uc": false,
+    "Vc": false,
+    "Wc": false,
+    "Xc": false,
+    "Yc": false,
+    "ed": "537.36",
+    "Ad": {},
+    "Sd": false,
+    "Td": true,
+    "Ud": false,
+    "h": {},
+    "te": "__UM__WINDOW",
+    "ue": {
+      "location": {
+        "href": "about:blank",
+        "origin": "null",
+        "protocol": "about:",
+        "host": "",
+        "hostname": "",
+        "port": "",
+        "pathname": "blank",
+        "search": "",
+        "hash": ""
+      }
+    },
+    "xe": {},
+    "Ee": {},
+    "Fe": {},
+    "Ge": {},
+    "Je": {
+      "I": 2,
+      "hel": 9,
+      "perf": {
+        "g": {
+          "bs0": 1590301278589,
+          "bs1": 1590301278589
+        },
+        "i": {
+          "_p": {
+            "auth2__client": {
+              "ml0": 1590301278592,
+              "ml1": 1590301278758,
+              "me0": 1590301278758,
+              "me1": 1590301278785
+            },
+            "debug_error___auth2__client": {
+              "ml0": 1590301278782
+            }
+          }
+        },
+        "r": [
+          [
+            "bs0",
+            null,
+            null
+          ],
+          [
+            "bs1",
+            null,
+            null
+          ],
+          [
+            "ml0",
+            "_p",
+            "auth2__client"
+          ],
+          [
+            "ml1",
+            "_p",
+            "auth2__client"
+          ],
+          [
+            "me0",
+            "_p",
+            "auth2__client"
+          ],
+          [
+            "ml0",
+            "_p",
+            "debug_error___auth2__client"
+          ],
+          [
+            "me1",
+            "_p",
+            "auth2__client"
+          ]
+        ]
+      },
+      "ci": [
+        {
+          "deviceType": "desktop",
+          "oauth-flow": {
+            "authUrl": "https://accounts.google.com/o/oauth2/auth",
+            "proxyUrl": "https://accounts.google.com/o/oauth2/postmessageRelay",
+            "disableOpt": true,
+            "idpIframeUrl": "https://accounts.google.com/o/oauth2/iframe",
+            "usegapi": false
+          },
+          "debug": {
+            "reportExceptionRate": 0.05,
+            "forceIm": false,
+            "rethrowException": false,
+            "host": "https://apis.google.com"
+          },
+          "enableMultilogin": true,
+          "googleapis.config": {
+            "auth": {
+              "useFirstPartyAuthV2": false
+            }
+          },
+          "isPlusUser": false,
+          "inline": {
+            "css": 1
+          },
+          "disableRealtimeCallback": false,
+          "drive_share": {
+            "skipInitCommand": true
+          },
+          "csi": {
+            "rate": 0.01
+          },
+          "client": {
+            "cors": false
+          },
+          "isLoggedIn": false,
+          "signInDeprecation": {
+            "rate": 0
+          },
+          "include_granted_scopes": true,
+          "llang": "en",
+          "iframes": {
+            "youtube": {
+              "params": {
+                "location": [
+                  "search",
+                  "hash"
+                ]
+              },
+              "url": ":socialhost:/:session_prefix:_/widget/render/youtube?usegapi=1",
+              "methods": [
+                "scroll",
+                "openwindow"
+              ]
+            },
+            "ytsubscribe": {
+              "url": "https://www.youtube.com/subscribe_embed?usegapi=1"
+            },
+            "plus_circle": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix::se:_/widget/plus/circle?usegapi=1"
+            },
+            "plus_share": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix::se:_/+1/sharebutton?plusShare=true&usegapi=1"
+            },
+            "rbr_s": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix::se:_/widget/render/recobarsimplescroller"
+            },
+            ":source:": "3p",
+            "playemm": {
+              "url": "https://play.google.com/work/embedded/search?usegapi=1&usegapi=1"
+            },
+            "savetoandroidpay": {
+              "url": "https://pay.google.com/gp/v/widget/save"
+            },
+            "blogger": {
+              "params": {
+                "location": [
+                  "search",
+                  "hash"
+                ]
+              },
+              "url": ":socialhost:/:session_prefix:_/widget/render/blogger?usegapi=1",
+              "methods": [
+                "scroll",
+                "openwindow"
+              ]
+            },
+            "evwidget": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix:_/events/widget?usegapi=1"
+            },
+            "partnersbadge": {
+              "url": "https://www.gstatic.com/partners/badge/templates/badge.html?usegapi=1"
+            },
+            "dataconnector": {
+              "url": "https://dataconnector.corp.google.com/:session_prefix:ui/widgetview?usegapi=1"
+            },
+            "surveyoptin": {
+              "url": "https://www.google.com/shopping/customerreviews/optin?usegapi=1"
+            },
+            ":socialhost:": "https://apis.google.com",
+            "shortlists": {
+              "url": ""
+            },
+            "hangout": {
+              "url": "https://talkgadget.google.com/:session_prefix:talkgadget/_/widget"
+            },
+            "plus_followers": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/_/im/_/widget/render/plus/followers?usegapi=1"
+            },
+            "post": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix::im_prefix:_/widget/render/post?usegapi=1"
+            },
+            ":gplus_url:": "https://plus.google.com",
+            "signin": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix:_/widget/render/signin?usegapi=1",
+              "methods": [
+                "onauth"
+              ]
+            },
+            "rbr_i": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix::se:_/widget/render/recobarinvitation"
+            },
+            "share": {
+              "url": ":socialhost:/:session_prefix::im_prefix:_/widget/render/share?usegapi=1"
+            },
+            "plusone": {
+              "params": {
+                "count": "",
+                "size": "",
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix::se:_/+1/fastbutton?usegapi=1"
+            },
+            "comments": {
+              "params": {
+                "location": [
+                  "search",
+                  "hash"
+                ]
+              },
+              "url": ":socialhost:/:session_prefix:_/widget/render/comments?usegapi=1",
+              "methods": [
+                "scroll",
+                "openwindow"
+              ]
+            },
+            ":im_socialhost:": "https://plus.googleapis.com",
+            "backdrop": {
+              "url": "https://clients3.google.com/cast/chromecast/home/widget/backdrop?usegapi=1"
+            },
+            "visibility": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix:_/widget/render/visibility?usegapi=1"
+            },
+            "autocomplete": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix:_/widget/render/autocomplete"
+            },
+            "additnow": {
+              "url": "https://apis.google.com/marketplace/button?usegapi=1",
+              "methods": [
+                "launchurl"
+              ]
+            },
+            ":signuphost:": "https://plus.google.com",
+            "ratingbadge": {
+              "url": "https://www.google.com/shopping/customerreviews/badge?usegapi=1"
+            },
+            "appcirclepicker": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/appcirclepicker"
+            },
+            "follow": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/follow?usegapi=1"
+            },
+            "community": {
+              "url": ":ctx_socialhost:/:session_prefix::im_prefix:_/widget/render/community?usegapi=1"
+            },
+            "sharetoclassroom": {
+              "url": "https://www.gstatic.com/classroom/sharewidget/widget_stable.html?usegapi=1"
+            },
+            "ytshare": {
+              "params": {
+                "url": ""
+              },
+              "url": ":socialhost:/:session_prefix:_/widget/render/ytshare?usegapi=1"
+            },
+            "plus": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/badge?usegapi=1"
+            },
+            "family_creation": {
+              "params": {
+                "url": ""
+              },
+              "url": "https://families.google.com/webcreation?usegapi=1&usegapi=1"
+            },
+            "commentcount": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/commentcount?usegapi=1"
+            },
+            "configurator": {
+              "url": ":socialhost:/:session_prefix:_/plusbuttonconfigurator?usegapi=1"
+            },
+            "zoomableimage": {
+              "url": "https://ssl.gstatic.com/microscope/embed/"
+            },
+            "appfinder": {
+              "url": "https://gsuite.google.com/:session_prefix:marketplace/appfinder?usegapi=1"
+            },
+            "savetowallet": {
+              "url": "https://pay.google.com/gp/v/widget/save"
+            },
+            "person": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/person?usegapi=1"
+            },
+            "savetodrive": {
+              "url": "https://drive.google.com/savetodrivebutton?usegapi=1",
+              "methods": [
+                "save"
+              ]
+            },
+            "page": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/page?usegapi=1"
+            },
+            "card": {
+              "url": ":socialhost:/:session_prefix:_/hovercard/card"
+            }
+          }
+        }
+      ],
+      "h": "m;/_/scs/apps-static/_/js/k=oz.gapi.en_US.UDX1VIHVzxg.O/am=wQE/d=1/ct=zgms/rs=AGLTcCNVdgZXO5ryWBS3EsCbC2rOo1FSyw/m=__features__",
+      "u": "https://apis.google.com/js/api.js",
+      "hee": true,
+      "fp": "6e301c87247264f4c3107aeea091727c8400cad9",
+      "dpo": false,
+      "us": [
+        "https://apis.google.com/js/api.js",
+        "http://apis.google.com/js/api.js"
+      ],
+      "ah": {},
+      "H": {
+        "m;/_/scs/apps-static/_/js/k=oz.gapi.en_US.UDX1VIHVzxg.O/am=wQE/d=1/ct=zgms/rs=AGLTcCNVdgZXO5ryWBS3EsCbC2rOo1FSyw/m=__features__": {
+          "r": [
+            "auth2",
+            "client",
+            "debug_error"
+          ],
+          "L": [
+            "auth2",
+            "client"
+          ]
+        }
+      },
+      "CP": [
+        null,
+        null
+      ],
+      "cd": [
+        {
+          "gwidget": {
+            "parsetags": "explicit"
+          },
+          "appsapi": {
+            "plus_one_service": "/plus/v1"
+          },
+          "csi": {
+            "rate": 0.01
+          },
+          "poshare": {
+            "hangoutContactPickerServer": "https://plus.google.com"
+          },
+          "gappsutil": {
+            "required_scopes": [
+              "https://www.googleapis.com/auth/plus.me",
+              "https://www.googleapis.com/auth/plus.people.recommended"
+            ],
+            "display_on_page_ready": false
+          },
+          "appsutil": {
+            "required_scopes": [
+              "https://www.googleapis.com/auth/plus.me",
+              "https://www.googleapis.com/auth/plus.people.recommended"
+            ],
+            "display_on_page_ready": false
+          },
+          "oauth-flow": {
+            "authUrl": "https://accounts.google.com/o/oauth2/auth",
+            "proxyUrl": "https://accounts.google.com/o/oauth2/postmessageRelay",
+            "redirectUri": "postmessage"
+          },
+          "iframes": {
+            "sharebox": {
+              "params": {
+                "json": "&"
+              },
+              "url": ":socialhost:/:session_prefix:_/sharebox/dialog"
+            },
+            "plus": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/badge?usegapi=1"
+            },
+            ":socialhost:": "https://apis.google.com",
+            ":im_socialhost:": "https://plus.googleapis.com",
+            "domains_suggest": {
+              "url": "https://domains.google.com/suggest/flow"
+            },
+            "card": {
+              "params": {
+                "s": "#",
+                "userid": "&"
+              },
+              "url": ":socialhost:/:session_prefix:_/hovercard/internalcard"
+            },
+            ":signuphost:": "https://plus.google.com",
+            ":gplus_url:": "https://plus.google.com",
+            "plusone": {
+              "url": ":socialhost:/:session_prefix:_/+1/fastbutton?usegapi=1"
+            },
+            "plus_share": {
+              "url": ":socialhost:/:session_prefix:_/+1/sharebutton?plusShare=true&usegapi=1"
+            },
+            "plus_circle": {
+              "url": ":socialhost:/:session_prefix:_/widget/plus/circle?usegapi=1"
+            },
+            "plus_followers": {
+              "url": ":socialhost:/_/im/_/widget/render/plus/followers?usegapi=1"
+            },
+            "configurator": {
+              "url": ":socialhost:/:session_prefix:_/plusbuttonconfigurator?usegapi=1"
+            },
+            "appcirclepicker": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/appcirclepicker"
+            },
+            "page": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/page?usegapi=1"
+            },
+            "person": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/person?usegapi=1"
+            },
+            "community": {
+              "url": ":ctx_socialhost:/:session_prefix::im_prefix:_/widget/render/community?usegapi=1"
+            },
+            "follow": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/follow?usegapi=1"
+            },
+            "commentcount": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/commentcount?usegapi=1"
+            },
+            "comments": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/comments?usegapi=1"
+            },
+            "blogger": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/blogger?usegapi=1"
+            },
+            "youtube": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/youtube?usegapi=1"
+            },
+            "reportabuse": {
+              "url": ":socialhost:/:session_prefix:_/widget/render/reportabuse?usegapi=1"
+            },
+            "additnow": {
+              "url": ":socialhost:/additnow/additnow.html"
+            },
+            "appfinder": {
+              "url": "https://gsuite.google.com/:session_prefix:marketplace/appfinder?usegapi=1"
+            },
+            ":source:": "1p"
+          },
+          "poclient": {
+            "update_session": "google.updateSessionCallback"
+          },
+          "googleapis.config": {
+            "rpc": "/rpc",
+            "root": "https://content.googleapis.com",
+            "root-1p": "https://clients6.google.com",
+            "useGapiForXd3": true,
+            "xd3": "/static/proxy.html",
+            "auth": {
+              "useInterimAuth": false
+            }
+          },
+          "report": {
+            "apis": [
+              "iframes\\..*",
+              "gadgets\\..*",
+              "gapi\\.appcirclepicker\\..*",
+              "gapi\\.client\\..*"
+            ],
+            "rate": 0.0001
+          },
+          "client": {
+            "perApiBatch": true
+          }
+        },
+        {
+          "gwidget": {
+            "parsetags": "onload"
+          },
+          "iframes": {
+            ":source:": "3p"
+          }
+        }
+      ],
+      "cfg": {
+        "gwidget": {
+          "parsetags": "onload"
+        },
+        "appsapi": {
+          "plus_one_service": "/plus/v1"
+        },
+        "csi": {
+          "rate": 0.01
+        },
+        "poshare": {
+          "hangoutContactPickerServer": "https://plus.google.com"
+        },
+        "gappsutil": {
+          "required_scopes": [
+            "https://www.googleapis.com/auth/plus.me",
+            "https://www.googleapis.com/auth/plus.people.recommended"
+          ],
+          "display_on_page_ready": false
+        },
+        "appsutil": {
+          "required_scopes": [
+            "https://www.googleapis.com/auth/plus.me",
+            "https://www.googleapis.com/auth/plus.people.recommended"
+          ],
+          "display_on_page_ready": false
+        },
+        "oauth-flow": {
+          "authUrl": "https://accounts.google.com/o/oauth2/auth",
+          "proxyUrl": "https://accounts.google.com/o/oauth2/postmessageRelay",
+          "redirectUri": "postmessage",
+          "disableOpt": true,
+          "idpIframeUrl": "https://accounts.google.com/o/oauth2/iframe",
+          "usegapi": false
+        },
+        "iframes": {
+          "sharebox": {
+            "params": {
+              "json": "&"
+            },
+            "url": ":socialhost:/:session_prefix:_/sharebox/dialog"
+          },
+          "plus": {
+            "url": ":socialhost:/:session_prefix:_/widget/render/badge?usegapi=1"
+          },
+          ":socialhost:": "https://apis.google.com",
+          ":im_socialhost:": "https://plus.googleapis.com",
+          "domains_suggest": {
+            "url": "https://domains.google.com/suggest/flow"
+          },
+          "card": {
+            "params": {
+              "s": "#",
+              "userid": "&"
+            },
+            "url": ":socialhost:/:session_prefix:_/hovercard/card"
+          },
+          ":signuphost:": "https://plus.google.com",
+          ":gplus_url:": "https://plus.google.com",
+          "plusone": {
+            "url": ":socialhost:/:session_prefix::se:_/+1/fastbutton?usegapi=1",
+            "params": {
+              "count": "",
+              "size": "",
+              "url": ""
+            }
+          },
+          "plus_share": {
+            "url": ":socialhost:/:session_prefix::se:_/+1/sharebutton?plusShare=true&usegapi=1",
+            "params": {
+              "url": ""
+            }
+          },
+          "plus_circle": {
+            "url": ":socialhost:/:session_prefix::se:_/widget/plus/circle?usegapi=1",
+            "params": {
+              "url": ""
+            }
+          },
+          "plus_followers": {
+            "url": ":socialhost:/_/im/_/widget/render/plus/followers?usegapi=1",
+            "params": {
+              "url": ""
+            }
+          },
+          "configurator": {
+            "url": ":socialhost:/:session_prefix:_/plusbuttonconfigurator?usegapi=1"
+          },
+          "appcirclepicker": {
+            "url": ":socialhost:/:session_prefix:_/widget/render/appcirclepicker"
+          },
+          "page": {
+            "url": ":socialhost:/:session_prefix:_/widget/render/page?usegapi=1"
+          },
+          "person": {
+            "url": ":socialhost:/:session_prefix:_/widget/render/person?usegapi=1"
+          },
+          "community": {
+            "url": ":ctx_socialhost:/:session_prefix::im_prefix:_/widget/render/community?usegapi=1"
+          },
+          "follow": {
+            "url": ":socialhost:/:session_prefix:_/widget/render/follow?usegapi=1"
+          },
+          "commentcount": {
+            "url": ":socialhost:/:session_prefix:_/widget/render/commentcount?usegapi=1"
+          },
+          "comments": {
+            "url": ":socialhost:/:session_prefix:_/widget/render/comments?usegapi=1",
+            "params": {
+              "location": [
+                "search",
+                "hash"
+              ]
+            },
+            "methods": [
+              "scroll",
+              "openwindow"
+            ]
+          },
+          "blogger": {
+            "url": ":socialhost:/:session_prefix:_/widget/render/blogger?usegapi=1",
+            "params": {
+              "location": [
+                "search",
+                "hash"
+              ]
+            },
+            "methods": [
+              "scroll",
+              "openwindow"
+            ]
+          },
+          "youtube": {
+            "url": ":socialhost:/:session_prefix:_/widget/render/youtube?usegapi=1",
+            "params": {
+              "location": [
+                "search",
+                "hash"
+              ]
+            },
+            "methods": [
+              "scroll",
+              "openwindow"
+            ]
+          },
+          "reportabuse": {
+            "url": ":socialhost:/:session_prefix:_/widget/render/reportabuse?usegapi=1"
+          },
+          "additnow": {
+            "url": "https://apis.google.com/marketplace/button?usegapi=1",
+            "methods": [
+              "launchurl"
+            ]
+          },
+          "appfinder": {
+            "url": "https://gsuite.google.com/:session_prefix:marketplace/appfinder?usegapi=1"
+          },
+          ":source:": "3p",
+          "ytsubscribe": {
+            "url": "https://www.youtube.com/subscribe_embed?usegapi=1"
+          },
+          "rbr_s": {
+            "params": {
+              "url": ""
+            },
+            "url": ":socialhost:/:session_prefix::se:_/widget/render/recobarsimplescroller"
+          },
+          "playemm": {
+            "url": "https://play.google.com/work/embedded/search?usegapi=1&usegapi=1"
+          },
+          "savetoandroidpay": {
+            "url": "https://pay.google.com/gp/v/widget/save"
+          },
+          "evwidget": {
+            "params": {
+              "url": ""
+            },
+            "url": ":socialhost:/:session_prefix:_/events/widget?usegapi=1"
+          },
+          "partnersbadge": {
+            "url": "https://www.gstatic.com/partners/badge/templates/badge.html?usegapi=1"
+          },
+          "dataconnector": {
+            "url": "https://dataconnector.corp.google.com/:session_prefix:ui/widgetview?usegapi=1"
+          },
+          "surveyoptin": {
+            "url": "https://www.google.com/shopping/customerreviews/optin?usegapi=1"
+          },
+          "shortlists": {
+            "url": ""
+          },
+          "hangout": {
+            "url": "https://talkgadget.google.com/:session_prefix:talkgadget/_/widget"
+          },
+          "post": {
+            "params": {
+              "url": ""
+            },
+            "url": ":socialhost:/:session_prefix::im_prefix:_/widget/render/post?usegapi=1"
+          },
+          "signin": {
+            "params": {
+              "url": ""
+            },
+            "url": ":socialhost:/:session_prefix:_/widget/render/signin?usegapi=1",
+            "methods": [
+              "onauth"
+            ]
+          },
+          "rbr_i": {
+            "params": {
+              "url": ""
+            },
+            "url": ":socialhost:/:session_prefix::se:_/widget/render/recobarinvitation"
+          },
+          "share": {
+            "url": ":socialhost:/:session_prefix::im_prefix:_/widget/render/share?usegapi=1"
+          },
+          "backdrop": {
+            "url": "https://clients3.google.com/cast/chromecast/home/widget/backdrop?usegapi=1"
+          },
+          "visibility": {
+            "params": {
+              "url": ""
+            },
+            "url": ":socialhost:/:session_prefix:_/widget/render/visibility?usegapi=1"
+          },
+          "autocomplete": {
+            "params": {
+              "url": ""
+            },
+            "url": ":socialhost:/:session_prefix:_/widget/render/autocomplete"
+          },
+          "ratingbadge": {
+            "url": "https://www.google.com/shopping/customerreviews/badge?usegapi=1"
+          },
+          "sharetoclassroom": {
+            "url": "https://www.gstatic.com/classroom/sharewidget/widget_stable.html?usegapi=1"
+          },
+          "ytshare": {
+            "params": {
+              "url": ""
+            },
+            "url": ":socialhost:/:session_prefix:_/widget/render/ytshare?usegapi=1"
+          },
+          "family_creation": {
+            "params": {
+              "url": ""
+            },
+            "url": "https://families.google.com/webcreation?usegapi=1&usegapi=1"
+          },
+          "zoomableimage": {
+            "url": "https://ssl.gstatic.com/microscope/embed/"
+          },
+          "savetowallet": {
+            "url": "https://pay.google.com/gp/v/widget/save"
+          },
+          "savetodrive": {
+            "url": "https://drive.google.com/savetodrivebutton?usegapi=1",
+            "methods": [
+              "save"
+            ]
+          }
+        },
+        "poclient": {
+          "update_session": "google.updateSessionCallback"
+        },
+        "googleapis.config": {
+          "rpc": "/rpc",
+          "root": "https://content.googleapis.com",
+          "root-1p": "https://clients6.google.com",
+          "useGapiForXd3": true,
+          "xd3": "/static/proxy.html",
+          "auth": {
+            "useInterimAuth": false,
+            "useFirstPartyAuthV2": false
+          }
+        },
+        "report": {
+          "apis": [
+            "iframes\\..*",
+            "gadgets\\..*",
+            "gapi\\.appcirclepicker\\..*",
+            "gapi\\.client\\..*"
+          ],
+          "rate": 0.0001
+        },
+        "client": {
+          "perApiBatch": true,
+          "cors": false
+        },
+        "deviceType": "desktop",
+        "debug": {
+          "reportExceptionRate": 0.05,
+          "forceIm": false,
+          "rethrowException": false,
+          "host": "https://apis.google.com"
+        },
+        "enableMultilogin": true,
+        "isPlusUser": false,
+        "inline": {
+          "css": 1
+        },
+        "disableRealtimeCallback": false,
+        "drive_share": {
+          "skipInitCommand": true
+        },
+        "isLoggedIn": false,
+        "signInDeprecation": {
+          "rate": 0
+        },
+        "include_granted_scopes": true,
+        "llang": "en"
+      },
+      "cu": [],
+      "RPMQ": [
+        null,
+        null
+      ],
+      "PQ": []
+    },
+    "jh": false,
+    "kh": false,
+    "lh": false,
+    "mh": false,
+    "nh": false,
+    "oh": false,
+    "rh": null,
+    "sh": true,
+    "Lh": {},
+    "ni": {},
+    "Pj": [
+      null,
+      null,
+      null
+    ],
+    "Qj": [],
+    "Rj": false,
+    "qq": true,
+    "uq": "webkitTransitionEnd",
+    "xq": "closure_listenable_706498",
+    "Ru": false,
+    "av": {},
+    "Xv": {
+      "wG": "noSessionBound",
+      "Ip": "userLoggedOut",
+      "BP": "activeSessionChanged",
+      "Gy": "sessionStateChanged",
+      "wS": "tokenReady",
+      "vS": "tokenFailed",
+      "my": "authResult",
+      "ERROR": "error"
+    },
+    "Vx": {},
+    "Xe": {},
+    "df": {},
+    "Uf": {
+      "ACK": "__ack",
+      "D9": "..",
+      "R9": 0,
+      "Q9": 1,
+      "P9": 2
+    },
+    "zg": {
+      "ez": {}
+    },
+    "$h": false,
+    "fi": {},
+    "gi": {},
+    "Cg": {},
+    "Lg": {},
+    "ui": {},
+    "xh": {},
+    "wi": {},
+    "Jt": {
+      "message": "StopIteration",
+      "stack": ""
+    },
+    "kj": {},
+    "yj": {
+      "allowtransparency": "true",
+      "frameborder": "0",
+      "hspace": "0",
+      "marginheight": "0",
+      "marginwidth": "0",
+      "scrolling": "no",
+      "style": "",
+      "tabindex": "0",
+      "vspace": "0",
+      "width": "100%"
+    },
+    "Hj": {},
+    "kl": {
+      "dt": {
+        "ZM": null,
+        "Oca": ".."
+      },
+      "tf": "__UM__WINDOW",
+      "HU": false,
+      "ZE": {},
+      "yF": {}
+    }
+  },
+  "config": {},
+  "auth2": {}
+}
