@@ -1,7 +1,7 @@
 const addedKeys = [];
 
 const getNewKeys = (keysBeforeLoad, keysAfterLoad) => {
-  return keysAfterLoad.filter((x) => !keysBeforeLoad.includes(x));
+  return keysAfterLoad.filter((x) => !keysBeforeLoad.includes(x)).sort();
 };
 
 const nonDefaultGapiClientKeys = () => {
@@ -78,6 +78,19 @@ it("sheets API adds sheets key", async () => {
   expect(getNewKeys(keysBeforeLoad, keysAfterLoad)).toEqual(["sheets"]);
 });
 
+it("directory API adds two keys", async () => {
+  // Act
+  const keysBeforeLoad = Object.keys(gapi.client);
+  await gapiClientLoad("admin", "directory_v1");
+  const keysAfterLoad = Object.keys(gapi.client);
+
+  // Assert
+  expect(getNewKeys(keysBeforeLoad, keysAfterLoad)).toEqual([
+    "admin",
+    "directory",
+  ]);
+});
+
 it("fake API adds two keys based on method ids", async () => {
   // Act
   const keysBeforeLoad = Object.keys(gapi.client);
@@ -99,7 +112,7 @@ it("fake API adds two keys based on method ids", async () => {
   const keysAfterLoad = Object.keys(gapi.client);
 
   // Assert
-  expect(getNewKeys(keysBeforeLoad, keysAfterLoad).sort()).toEqual([
+  expect(getNewKeys(keysBeforeLoad, keysAfterLoad)).toEqual([
     "firstNamespace",
     "secondNamespace",
   ]);
