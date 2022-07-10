@@ -173,6 +173,47 @@ it("fake API adds resources based on ID as opposed to the resource name/key", as
   ).toBe(false);
 });
 
+it("does not convert resources/methods with dash/minus in them into camelCase", async () => {
+  // Act
+  const keysBeforeLoad = Object.keys(gapi.client);
+  await gapiClientLoad({
+    name: "some-name",
+    resources: {
+      "minus-resource": {
+        methods: {
+          "minus-method": {
+            httpMethod: "GET",
+            path: "some/path/1",
+            id: "minus-resource.minus-method",
+          },
+        },
+      },
+    },
+  });
+  const keysAfterLoad = Object.keys(gapi.client);
+
+  // Assert
+  expect(
+    Object.prototype.hasOwnProperty.call(gapi.client, "minus-resource")
+  ).toBe(true);
+  expect(
+    Object.prototype.hasOwnProperty.call(gapi.client, "minusResource")
+  ).toBe(false);
+  expect(getNewKeys(keysBeforeLoad, keysAfterLoad)).toEqual(["minus-resource"]);
+  expect(
+    Object.prototype.hasOwnProperty.call(
+      gapi.client["minus-resource"],
+      "minus-method"
+    )
+  ).toBe(true);
+  expect(
+    Object.prototype.hasOwnProperty.call(
+      gapi.client["minus-resource"],
+      "minusMethod"
+    )
+  ).toBe(false);
+});
+
 describe("drive API by URL", () => {
   let keysBeforeLoad;
   beforeAll(async () => {
