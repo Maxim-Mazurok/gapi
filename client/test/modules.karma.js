@@ -214,6 +214,49 @@ it("does not convert resources/methods with dash/minus in them into camelCase", 
   ).toBe(false);
 });
 
+it("resource takes precedence to method on the same level with the same name", async () => {
+  // Act
+  const keysBeforeLoad = Object.keys(gapi.client);
+  await gapiClientLoad({
+    name: "some-name",
+    resources: {
+      "conflict-api": {
+        resources: {
+          labels: {
+            methods: {
+              list: {
+                httpMethod: "GET",
+                path: "some/path/1",
+                id: "conflict-api.labels.list",
+              },
+            },
+          },
+        },
+        methods: {
+          labels: {
+            httpMethod: "GET",
+            path: "some/path/1",
+            id: "conflict-api.labels",
+          },
+        },
+      },
+    },
+  });
+  const keysAfterLoad = Object.keys(gapi.client);
+
+  // Assert
+  expect(
+    Object.prototype.hasOwnProperty.call(gapi.client["conflict-api"], "labels")
+  ).toBe(true);
+  expect(typeof gapi.client["conflict-api"], "labels").toBe("object");
+  expect(
+    Object.prototype.hasOwnProperty.call(
+      gapi.client["conflict-api"].labels,
+      "list"
+    )
+  ).toBe(true);
+});
+
 describe("drive API by URL", () => {
   let keysBeforeLoad;
   beforeAll(async () => {
