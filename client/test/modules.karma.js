@@ -1,28 +1,5 @@
-const addedKeys = [];
-
 const getNewKeys = (keysBeforeLoad, keysAfterLoad) => {
   return keysAfterLoad.filter((x) => !keysBeforeLoad.includes(x)).sort();
-};
-
-const nonDefaultGapiClientKeys = () => {
-  const defaultKeys = [
-    "init",
-    "load",
-    "newBatch",
-    "newRpcBatch",
-    "newHttpBatch",
-    "register",
-    "request",
-    "rpcRequest",
-    "setApiKey",
-    "setApiVersions",
-    "getToken",
-    "setToken",
-    "AuthType",
-  ];
-  const keys = Object.keys(gapi.client);
-  const nonDefaultKeys = keys.filter((key) => !defaultKeys.includes(key));
-  return nonDefaultKeys;
 };
 
 const loadGapi = async () => {
@@ -61,7 +38,14 @@ beforeAll(async () => {
 it("tasks API adds tasks key", async () => {
   // Act
   const keysBeforeLoad = Object.keys(gapi.client);
-  await gapiClientLoad("tasks", "v1");
+  await new Promise((resolve) => {
+    gapi.client
+      .load("https://tasks.googleapis.com/$discovery/rest?version=v1")
+      .then(() => {
+        // .then() test
+        resolve();
+      });
+  });
   const keysAfterLoad = Object.keys(gapi.client);
 
   // Assert
@@ -72,10 +56,55 @@ it("sheets API adds sheets key", async () => {
   // Act
   const keysBeforeLoad = Object.keys(gapi.client);
   await gapiClientLoad("sheets", "v4");
+  await gapi.client.load(
+    // await test
+    "https://sheets.googleapis.com/$discovery/rest?version=v4"
+  );
   const keysAfterLoad = Object.keys(gapi.client);
 
   // Assert
   expect(getNewKeys(keysBeforeLoad, keysAfterLoad)).toEqual(["sheets"]);
+});
+
+it("gapi.client.load.catch test", async () => {
+  try {
+    await new Promise((resolve, reject) => {
+      gapi.client
+        .load("https://tasks.googleapis.com/$discovery/rest?version=v99")
+        .then(() => {
+          resolve();
+        })
+        .catch((e) => reject(e));
+    });
+    expect(false).toBe(true);
+  } catch (e) {
+    expect(e).toEqual({
+      error: Object({
+        code: 404,
+        message:
+          "Discovery document not found for API service: tasks.googleapis.com format: rest version: v99",
+        status: "NOT_FOUND",
+      }),
+    });
+  }
+});
+
+it("gapi.client.load await try-catch test", async () => {
+  try {
+    await gapi.client.load(
+      "https://tasks.googleapis.com/$discovery/rest?version=v99"
+    );
+    expect(false).toBe(true);
+  } catch (e) {
+    expect(e).toEqual({
+      error: Object({
+        code: 404,
+        message:
+          "Discovery document not found for API service: tasks.googleapis.com format: rest version: v99",
+        status: "NOT_FOUND",
+      }),
+    });
+  }
 });
 
 it("directory API adds two keys", async () => {
