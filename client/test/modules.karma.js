@@ -120,6 +120,16 @@ it("directory API adds two keys", async () => {
   ]);
 });
 
+it("customsearch API adds correct key", async () => {
+  // Act
+  const keysBeforeLoad = Object.keys(gapi.client);
+  await gapiClientLoad("customsearch", "v1");
+  const keysAfterLoad = Object.keys(gapi.client);
+
+  // Assert
+  expect(getNewKeys(keysBeforeLoad, keysAfterLoad)).toEqual(["search"]);
+});
+
 it("fake API adds two keys based on method ids", async () => {
   // Act
   const keysBeforeLoad = Object.keys(gapi.client);
@@ -288,7 +298,7 @@ describe("drive API by URL", () => {
         "replies",
         "revisions",
         "teamdrives",
-        "BJ", // something weird, always present, something internal most likely
+        "nJ", // something weird, always present, something internal most likely
       ].sort()
     );
   });
